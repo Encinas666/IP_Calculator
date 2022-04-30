@@ -11,7 +11,7 @@ public class ValoresIniciales {
     public static final int MIN_Y = 0;
     public static final int MAIN_WIDTH = 500;
     public static final int MAIN_HEIGHT = 310;
-    public static boolean rellenado = false;
+
     public static int intervalo = 7;
     public static int thickness = 0;
 

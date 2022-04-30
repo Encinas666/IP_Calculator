@@ -32,7 +32,7 @@ public class FramePrincipal extends JFrame {
 
     public FramePrincipal(){
         init();
-        setIconImage(new ImageIcon(getClass().getResource("src/resources/red1.png")).getImage());
+        setIconImage(new ImageIcon(getClass().getResource("src/resource/red1.png")).getImage());
         frame = this;
     }
 
@@ -84,6 +84,14 @@ public class FramePrincipal extends JFrame {
         calcular.setFocusable(false);
         calcular.setBackground(Color.BLUE);
         panel.add(calcular);
+
+        calcular.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new FrameContenedor();
+                frame.setState(Frame.ICONIFIED);
+            }
+        });
 
         return panel;
     }
