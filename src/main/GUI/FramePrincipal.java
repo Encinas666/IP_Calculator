@@ -88,8 +88,7 @@ public class FramePrincipal extends JFrame {
         calcular.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new FrameContenedor();
-                frame.setState(Frame.ICONIFIED);
+                isACorrectIp(txtDR.getText());
             }
         });
 
@@ -117,5 +116,31 @@ public class FramePrincipal extends JFrame {
 
     private void mensajeError(){
         JOptionPane.showMessageDialog(null, "Debe ingresar una direccion ip válida", "Error", JOptionPane.ERROR_MESSAGE);
+    }
+
+    private void isACorrectIp(String dirIP){
+        if(!dirIP.isEmpty()){
+            Integer[] dirRed = null;
+                try{
+                    String[] oct = dirIP.split(".");
+                    new FrameContenedor(octetos(oct));
+                    frame.setState(Frame.ICONIFIED);
+            }catch (NumberFormatException ex){
+                ex.printStackTrace();
+                mensajeError();
+            }
+        }else{
+            mensajeError();
+        }
+    }
+
+    private Integer[] octetos(String[] oct){
+        Integer[] res = new Integer[4];
+        int i = 0;
+        while(i<oct.length){
+            System.out.println(oct[i]);
+            res[i] = Integer.parseInt(oct[i]);
+        }
+        return res;
     }
 }

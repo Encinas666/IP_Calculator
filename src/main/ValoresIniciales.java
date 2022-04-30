@@ -20,5 +20,5 @@ public class ValoresIniciales {
     public static Color color_relleno = new Color(255, 255, 255);
     public static final Color COLOR_SECUNDARIO = new Color(0, 111, 251);
 
-    //public static Opciones opcion = null;
+    public static Opciones opcion = null;
 }

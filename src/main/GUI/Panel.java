@@ -5,20 +5,20 @@ package main.GUI;
 import javax.swing.JPanel;
 
 import main.ValoresIniciales;
-//import main.Algoritmos.*;
+import main.Algoritmos.*;
 
 public class Panel extends JPanel {
-    //private Red red;
+    private Red red;
 
     public Panel(){
         init();
     }
     //Informacion del calculo
-    // public Panel(Integer[] octetos) {
-    //     this();
-    //     red = new ClassRed(octetos);
-    //     this.addMouseListener(new MyMouseListener(red, this);
-    // }
+    public Panel(Integer[] octetos) {
+        this();
+        red = new ClassRed(octetos);
+        //this.addMouseListener(new MyMouseListener(red, this);
+    }
     //panel de listado de sub redes
     // public Panel(int x1, int y1, int x2, int y2) {
     //     this();
