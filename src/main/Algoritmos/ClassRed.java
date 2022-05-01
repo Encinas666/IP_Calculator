@@ -3,7 +3,7 @@ package main.Algoritmos;
 import javax.swing.JOptionPane;
 
 public class ClassRed extends Red{
-    Integer [] octetos_;
+    String red;
     String cadIP;
     String[] ip;
     long []binario;
@@ -16,8 +16,8 @@ public class ClassRed extends Red{
     int TH= 0;
     int A,B,C,D;
 
-    public ClassRed(Integer[] octetos_){
-        this.octetos_ = octetos_;
+    public ClassRed(String red){
+        this.red = red;
         ip = new String[4];
         binario = new long[4];
         ban = false;
@@ -31,36 +31,36 @@ public class ClassRed extends Red{
         TH= 0;
     }
     
-    public String claseRed(){
-        String redclass = "";
-        if(octetos_[0]>= 1 && octetos_[0] < 127){
-            redclass = getRed()+"//"+ " Clase A";
-        }else if(octetos_[0]>= 127 && octetos_[0] < 192){
-            redclass = getRed()+" //"+ " Clase B";
-        }else if(octetos_[0]>= 192 && octetos_[0] < 224){
-            redclass = getRed() +" //"+ " Clase C";
-        }else if(octetos_[0]>= 224 && octetos_[0] < 240){
-            redclass = getRed() +" //"+ " Clase D";
-        }else if(octetos_[0]>= 240 && octetos_[0] < 256){
-            redclass = getRed() +" //"+ " Clase E";
-        }else{
-            message("Direccion de red invalida!!");
-        }
-        return redclass;
-    }
+    // public String claseRed(){
+    //     String redclass = "";
+    //     if(octetos_[0]>= 1 && octetos_[0] < 127){
+    //         redclass = getRed()+"//"+ " Clase A";
+    //     }else if(octetos_[0]>= 127 && octetos_[0] < 192){
+    //         redclass = getRed()+" //"+ " Clase B";
+    //     }else if(octetos_[0]>= 192 && octetos_[0] < 224){
+    //         redclass = getRed() +" //"+ " Clase C";
+    //     }else if(octetos_[0]>= 224 && octetos_[0] < 240){
+    //         redclass = getRed() +" //"+ " Clase D";
+    //     }else if(octetos_[0]>= 240 && octetos_[0] < 256){
+    //         redclass = getRed() +" //"+ " Clase E";
+    //     }else{
+    //         message("Direccion de red invalida!!");
+    //     }
+    //     return redclass;
+    // }
 
-    private String getRed(){
-        String red = "";
-        for(int i = 0; i<octetos_.length; i++){
-            if(i == octetos_.length - 1){
-                red = red + octetos_[i];
-            }
-            else{
-                red = red +"." +octetos_[i];
-            }
-        }
-        return red;
-    }
+    // private String getRed(){
+    //     String red = "";
+    //     for(int i = 0; i<octetos_.length; i++){
+    //         if(i == octetos_.length - 1){
+    //             red = red + octetos_[i];
+    //         }
+    //         else{
+    //             red = red +"." +octetos_[i];
+    //         }
+    //     }
+    //     return red;
+    // }
    
     //Metodos auxiliares
     private void message(String mensaje){
@@ -86,6 +86,6 @@ public class ClassRed extends Red{
     //Inicializar algoritmo
     @Override
     public void run(){
-        claseRed();
+        //claseRed();
     }
 }

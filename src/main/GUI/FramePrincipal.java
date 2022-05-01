@@ -88,7 +88,12 @@ public class FramePrincipal extends JFrame {
         calcular.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                isACorrectIp(txtDR.getText());
+                if(isACorrectIp(txtDR.getText()) == true){
+                    new FrameContenedor(txtDR.getText());
+                    frame.setState(Frame.ICONIFIED);
+                }else{
+                    mensajeError();
+                }
             }
         });
 
@@ -118,29 +123,50 @@ public class FramePrincipal extends JFrame {
         JOptionPane.showMessageDialog(null, "Debe ingresar una direccion ip válida", "Error", JOptionPane.ERROR_MESSAGE);
     }
 
-    private void isACorrectIp(String dirIP){
-        if(!dirIP.isEmpty()){
-            Integer[] dirRed = null;
-                try{
-                    String[] oct = dirIP.split(".");
-                    new FrameContenedor(octetos(oct));
-                    frame.setState(Frame.ICONIFIED);
-            }catch (NumberFormatException ex){
-                ex.printStackTrace();
-                mensajeError();
-            }
-        }else{
-            mensajeError();
-        }
-    }
-
-    private Integer[] octetos(String[] oct){
-        Integer[] res = new Integer[4];
-        int i = 0;
-        while(i<oct.length){
-            System.out.println(oct[i]);
-            res[i] = Integer.parseInt(oct[i]);
-        }
-        return res;
+    private boolean isACorrectIp(String cadIP){
+        boolean res = false;
+        int[] ip = new int[4];
+        int tamCad = cadIP.length();
+        int aux = 0;
+        int j = 0, i = 0;
+        if(tamCad>=7 && tamCad <= 15){
+           while(i < tamCad){
+               if(cadIP.charAt(i) == '.'){
+                   String a = cadIP.substring(aux,i);
+                    try{
+                        int x = Integer.parseInt(a);
+                        if(x >= 0 && x < 256){
+                            ip[j] = x;
+                            aux = i+1;
+                            j++;
+                            res = true;
+                        }else{
+                            res = false;
+                            break;
+                        }
+                    }catch(NumberFormatException e){  
+                        res = false;
+                        break;
+                    }   
+               }else if(i == tamCad-1){
+                    String a = cadIP.substring(aux,i+1);
+                    try{
+                        int x = Integer.parseInt(a);
+                        if(x >= 0 && x < 256){
+                            ip[j] = x;
+                            res = true;
+                        }else{
+                            res = false;
+                            break;
+                        }
+                    }catch(NumberFormatException e){
+                        res = false;
+                        break;
+                    }   
+               }
+               i++;
+           }
+       }
+       return res;
     }
 }

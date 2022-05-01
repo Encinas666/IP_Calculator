@@ -8,15 +8,15 @@ import main.ValoresIniciales;
 import main.Algoritmos.*;
 
 public class Panel extends JPanel {
-    private Red red;
+    private Red red_;
 
     public Panel(){
         init();
     }
     //Informacion del calculo
-    public Panel(Integer[] octetos) {
+    public Panel(String red) {
         this();
-        red = new ClassRed(octetos);
+        red_ = new ClassRed(red);
         //this.addMouseListener(new MyMouseListener(red, this);
     }
     //panel de listado de sub redes

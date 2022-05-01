@@ -10,9 +10,9 @@ import main.ValoresIniciales;
 
 public class FrameContenedor extends JFrame{
    // panel de calculos
-    public FrameContenedor(Integer[] oct){
+    public FrameContenedor(String red){
         super("Calculos");
-        this.add(new Panel(oct), BorderLayout.CENTER);
+        this.add(new Panel(red), BorderLayout.CENTER);
         init(new Panel());
     }
 
