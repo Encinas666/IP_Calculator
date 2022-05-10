@@ -27,8 +27,6 @@ public class FramePrincipal extends JFrame {
 
     JFrame frame;
     JComboBox<String> bits;
-    JComboBox<String> hexa;
-    JComboBox<String> decimal;
 
     public FramePrincipal(){
         init();
@@ -38,7 +36,6 @@ public class FramePrincipal extends JFrame {
 
     private void init(){
         this.bits = new JComboBox<>();
-        this.decimal = new JComboBox<>();
         this.setLayout(new BoxLayout(getContentPane(), BoxLayout.Y_AXIS));
         this.setSize(ValoresIniciales.MAIN_WIDTH, ValoresIniciales.MAIN_HEIGHT);
         this.setLocationRelativeTo(null);
@@ -46,7 +43,6 @@ public class FramePrincipal extends JFrame {
         this.setResizable(false);
         this.setTitle("CALCULADORA_IP");
 
-        this.add(pAjustes());
         this.add(pCalculadoraIp());
 
         this.setVisible(true);
@@ -73,13 +69,27 @@ public class FramePrincipal extends JFrame {
         lblIP.setForeground(Color.WHITE);
         panel.add(lblIP);
 
+        JLabel lblNMDecimal = new JLabel("255.255.255.0");
+        lblNMDecimal.setBounds(310, 110, 150, 50);
+        lblNMDecimal.setFont(font);
+        lblNMDecimal.setForeground(Color.WHITE);
+        lblNMDecimal.setBorder(BorderFactory.createTitledBorder(null, "NetMask Decimal:",1,0, null, Color.white));
+        panel.add(lblNMDecimal);
+
         JTextField txtDR = new JTextField("0.0.0.0");
         txtDR.setBounds(250, 80, 200, 25);
         panel.add(txtDR);
 
+
+        bits.setBounds(250, 130, 50, 25);
+        for(int i = 1; i<=32;i++){
+            bits.addItem(""+i);
+        }
+        panel.add(bits);
+
         JButton calcular = new JButton("<html><span style='font-size:10px'>"+"Calcular"+"</span></html>");
         calcular.setForeground(Color.WHITE);
-        calcular.setBounds(300, 120, 100, 40);
+        calcular.setBounds(300, 200, 100, 40);
         calcular.setBorder(null);
         calcular.setFocusable(false);
         calcular.setBackground(Color.BLUE);
@@ -96,25 +106,6 @@ public class FramePrincipal extends JFrame {
                 }
             }
         });
-
-        return panel;
-    }
-
-    private JPanel pAjustes(){
-        JPanel panel = new JPanel();
-        panel.setBorder(BorderFactory.createTitledBorder(null, "AJUSTES:",1,0, null, Color.white));
-    
-        panel.setBackground(Color.BLACK);
-        panel.setMaximumSize(new Dimension(this.getWidth(), 50));
-
-        bits.setBounds(70, 10, 120, 25);
-        for(int i = 1; i<=32;i++){
-            bits.addItem(""+i);
-        }
-        panel.add(bits);
-
-        decimal.setBounds(330, 10, 120, 25);
-        panel.add(decimal);
 
         return panel;
     }

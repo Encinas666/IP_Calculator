@@ -89,13 +89,11 @@ public class ClassRed extends Red{
         return cad;
     }
     
-    public String cadIPB(){
-        String cad = "";
-        for(int i = 0;i < ip.length; i++){
-            cad = cad +"|"+ binario[i];
+    public void octetoBin(String[] octeto){
+        for(int i = 0; i < red.length;i++){
+
         }
-        return cad;
-    } 
+    }
     
     //Inicializar algoritmo
     @Override
