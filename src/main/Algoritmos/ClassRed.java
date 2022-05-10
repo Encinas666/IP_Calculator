@@ -3,7 +3,8 @@ package main.Algoritmos;
 import javax.swing.JOptionPane;
 
 public class ClassRed extends Red{
-    String red;
+    String red1;
+    Integer [] red;
     String cadIP;
     String[] ip;
     long []binario;
@@ -16,8 +17,9 @@ public class ClassRed extends Red{
     int TH= 0;
     int A,B,C,D;
 
-    public ClassRed(String red){
-        this.red = red;
+
+    public ClassRed(String red1){
+        this.red1 = red1;
         ip = new String[4];
         binario = new long[4];
         ban = false;
@@ -30,37 +32,49 @@ public class ClassRed extends Red{
         TS = 0;
         TH= 0;
     }
-    
-    // public String claseRed(){
-    //     String redclass = "";
-    //     if(octetos_[0]>= 1 && octetos_[0] < 127){
-    //         redclass = getRed()+"//"+ " Clase A";
-    //     }else if(octetos_[0]>= 127 && octetos_[0] < 192){
-    //         redclass = getRed()+" //"+ " Clase B";
-    //     }else if(octetos_[0]>= 192 && octetos_[0] < 224){
-    //         redclass = getRed() +" //"+ " Clase C";
-    //     }else if(octetos_[0]>= 224 && octetos_[0] < 240){
-    //         redclass = getRed() +" //"+ " Clase D";
-    //     }else if(octetos_[0]>= 240 && octetos_[0] < 256){
-    //         redclass = getRed() +" //"+ " Clase E";
-    //     }else{
-    //         message("Direccion de red invalida!!");
-    //     }
-    //     return redclass;
-    // }
 
-    // private String getRed(){
-    //     String red = "";
-    //     for(int i = 0; i<octetos_.length; i++){
-    //         if(i == octetos_.length - 1){
-    //             red = red + octetos_[i];
-    //         }
-    //         else{
-    //             red = red +"." +octetos_[i];
-    //         }
-    //     }
-    //     return red;
-    // }
+    public void convertAlfaNumerico(){
+        red = new Integer[4];
+        try{
+            String[] r = red1.split(".");
+            for (int i = 0; i < r.length; i++){
+                red[i] = Integer.parseInt(r[i]); 
+            }
+        }catch(NumberFormatException e){
+            message("ERROR");
+        }
+    }
+    
+    public String claseRed(){
+        String redclass = "";
+        if(red[0]>= 1 && red[0] < 127){
+            redclass = getRed()+"//"+ " Clase A";
+        }else if(red[0]>= 127 && red[0] < 192){
+            redclass = getRed()+" //"+ " Clase B";
+        }else if(red[0]>= 192 && red[0] < 224){
+            redclass = getRed() +" //"+ " Clase C";
+        }else if(red[0]>= 224 && red[0] < 240){
+            redclass = getRed() +" //"+ " Clase D";
+        }else if(red[0]>= 240 && red[0] < 256){
+            redclass = getRed() +" //"+ " Clase E";
+        }else{
+            message("Direccion de red invalida!!");
+        }
+        return redclass;
+    }
+
+    private String getRed(){
+        String red_ = "";
+        for(int i = 0; i<red.length; i++){
+            if(i == red.length - 1){
+                red_ = red_ + red[i];
+            }
+            else{
+                red_ = red_ +"." + red[i];
+            }
+        }
+        return red_;
+    }
    
     //Metodos auxiliares
     private void message(String mensaje){

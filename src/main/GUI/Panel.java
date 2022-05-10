@@ -1,5 +1,7 @@
 package main.GUI;
 
+import javax.swing.JLabel;
+
 //import java.util.spi.CalendarNameProvider;
 
 import javax.swing.JPanel;
@@ -17,7 +19,6 @@ public class Panel extends JPanel {
     public Panel(String red) {
         this();
         red_ = new ClassRed(red);
-        //this.addMouseListener(new MyMouseListener(red, this);
     }
     //panel de listado de sub redes
     // public Panel(int x1, int y1, int x2, int y2) {
