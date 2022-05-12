@@ -1,19 +1,16 @@
 package main.GUI;
 
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Frame;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JColorChooser;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -73,19 +70,23 @@ public class FramePrincipal extends JFrame {
         lblNMDecimal.setBounds(310, 110, 150, 50);
         lblNMDecimal.setFont(font);
         lblNMDecimal.setForeground(Color.WHITE);
-        lblNMDecimal.setBorder(BorderFactory.createTitledBorder(null, "NetMask Decimal:",1,0, null, Color.white));
+        lblNMDecimal.setBorder(BorderFactory.createTitledBorder(null, "NetMask Decimal:",
+        1,0, null, Color.white));
         panel.add(lblNMDecimal);
 
         JTextField txtDR = new JTextField("0.0.0.0");
         txtDR.setBounds(250, 80, 200, 25);
         panel.add(txtDR);
 
-
+        
         bits.setBounds(250, 130, 50, 25);
         for(int i = 1; i<=32;i++){
             bits.addItem(""+i);
         }
         panel.add(bits);
+
+        selectionBits(bits);
+        
 
         JButton calcular = new JButton("<html><span style='font-size:10px'>"+"Calcular"+"</span></html>");
         calcular.setForeground(Color.WHITE);
@@ -159,5 +160,44 @@ public class FramePrincipal extends JFrame {
            }
        }
        return res;
+    }
+
+    private void selectionBits(JComboBox<String> bits){
+        int op = bits.getSelectedIndex();
+
+        switch(op){
+            case 0: ValoresIniciales.mask = 1; break;
+            case 1: ValoresIniciales.mask = 2; break;
+            case 2: ValoresIniciales.mask = 3; break;
+            case 3: ValoresIniciales.mask = 4; break;
+            case 4: ValoresIniciales.mask = 5; break;
+            case 5: ValoresIniciales.mask = 6; break;
+            case 6: ValoresIniciales.mask = 7; break;
+            case 7: ValoresIniciales.mask = 8; break;
+            case 8: ValoresIniciales.mask = 9; break;
+            case 9: ValoresIniciales.mask = 10; break;
+            case 10: ValoresIniciales.mask = 11; break;
+            case 11: ValoresIniciales.mask = 12; break;
+            case 12: ValoresIniciales.mask = 13; break;
+            case 13: ValoresIniciales.mask = 14; break;
+            case 14: ValoresIniciales.mask = 15; break;
+            case 15: ValoresIniciales.mask = 16; break;
+            case 16: ValoresIniciales.mask = 17; break;
+            case 17: ValoresIniciales.mask = 18; break;
+            case 18: ValoresIniciales.mask = 19; break;
+            case 19: ValoresIniciales.mask = 20; break;
+            case 20: ValoresIniciales.mask = 21; break;
+            case 21: ValoresIniciales.mask = 22; break;
+            case 22: ValoresIniciales.mask = 23; break;
+            case 23: ValoresIniciales.mask = 24; break;
+            case 24: ValoresIniciales.mask = 25; break;
+            case 25: ValoresIniciales.mask = 26; break;
+            case 26: ValoresIniciales.mask = 27; break;
+            case 27: ValoresIniciales.mask = 28; break;
+            case 28: ValoresIniciales.mask = 29; break;
+            case 29: ValoresIniciales.mask = 30; break;
+            case 30: ValoresIniciales.mask = 30; break;
+            case 31: ValoresIniciales.mask = 30; break;
+        }
     }
 }
