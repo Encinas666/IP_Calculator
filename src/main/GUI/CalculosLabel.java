@@ -8,6 +8,10 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
 
+import main.Algoritmos.ClassRed;
+import main.Algoritmos.Red;
+import main.Algoritmos.metodos.NombreDeRed;
+
 public class CalculosLabel extends JPanel {
     private JLabel red;
     private JLabel rangoHost;
@@ -15,7 +19,7 @@ public class CalculosLabel extends JPanel {
     private JLabel binario;
 
     private JPanel panel;
-
+    Red red1;
     public CalculosLabel(JPanel panel){
         this.panel = panel;
         init();
@@ -64,7 +68,6 @@ public class CalculosLabel extends JPanel {
     }
 
     public Border borderTitle(){
-        
-        return BorderFactory.createTitledBorder(null, "xxx",2,0, null, Color.white);
+        return BorderFactory.createTitledBorder(null,"",2,0, null, Color.white);
     }
 }

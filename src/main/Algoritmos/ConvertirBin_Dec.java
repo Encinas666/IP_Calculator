@@ -28,24 +28,18 @@ public class ConvertirBin_Dec extends Red {
 		}
 	}
 
-	@Override
-	public void run() {
-		
-	}
-
-    public void MaskD(String[] oct) {
+	public void MaskD(String[] oct) {
 		int i = 0;
-		for (String cad : oct) {
+		for (String cad : oct){
 			if(i == oct.length-1){
 				red = red + cad;
 			}else{
 				red = red +"."+cad;
 			}
-			i++;	
+			i++;
 		}
     }
    
-
     @Override
     public String getRedClass() {
         return "";
@@ -60,4 +54,9 @@ public class ConvertirBin_Dec extends Red {
     public String getMascaraRed() {
         return "";
     }
+
+	@Override
+	public void run() {
+		
+	}
 }

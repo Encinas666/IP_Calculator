@@ -21,7 +21,6 @@ public class MascaraDeRed{
             ConvertirBin_Dec cbd = (ConvertirBin_Dec) red;
             netMaskBin();
             cbd.MaskD(obtenerOct());
-
         }
         if(red instanceof ConvertirDec_Bin){
             ConvertirDec_Bin cdb = (ConvertirDec_Bin) red;

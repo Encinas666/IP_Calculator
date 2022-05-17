@@ -19,6 +19,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import main.ValoresIniciales;
+import main.Algoritmos.metodos.MascaraDeRed;
 
 public class FramePrincipal extends JFrame {
 
@@ -72,6 +73,7 @@ public class FramePrincipal extends JFrame {
         lblNMDecimal.setForeground(Color.WHITE);
         lblNMDecimal.setBorder(BorderFactory.createTitledBorder(null, "NetMask Decimal:",
         1,0, null, Color.white));
+        //MascaraDeRed.getMascaraDeRed().mascaraDeRed(red);
         panel.add(lblNMDecimal);
 
         JTextField txtDR = new JTextField("0.0.0.0");

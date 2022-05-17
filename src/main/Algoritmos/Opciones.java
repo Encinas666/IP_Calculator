@@ -1,5 +1,5 @@
 package main.Algoritmos;
 
 public enum Opciones {
-    BITS;
+    BITS;CALCULAR_SUBRED;
 }
