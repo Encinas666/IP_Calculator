@@ -1,11 +1,12 @@
 package main.GUI;
 
+import java.awt.Color;
 import java.awt.Font;
+
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
-import java.awt.Color;
 
 public class CalculosLabel extends JPanel {
     private JLabel red;

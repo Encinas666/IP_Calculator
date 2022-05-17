@@ -20,15 +20,14 @@ public class MascaraDeRed{
         if(red instanceof ConvertirBin_Dec){
             ConvertirBin_Dec cbd = (ConvertirBin_Dec) red;
             netMaskBin();
-            cbd.getMaskD(obtenerOct());
+            cbd.MaskD(obtenerOct());
 
         }
         if(red instanceof ConvertirDec_Bin){
             ConvertirDec_Bin cdb = (ConvertirDec_Bin) red;
             netMaskBin();
-            //cdb.getMaskB(obtenerOct());
+            cdb.MaskB(obtenerOct());
         }
-
     }
 
     private void netMaskBin(){

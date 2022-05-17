@@ -2,6 +2,8 @@ package main;
 
 import java.awt.Color;
 
+import main.Algoritmos.Opciones;
+
 //import main.Algorithms.Opciones;
 
 public class ValoresIniciales {

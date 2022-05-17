@@ -30,7 +30,6 @@ public class ConvertirBin_Dec extends Red {
 
 	@Override
 	public void run() {
-		// TODO Auto-generated method stub
 		
 	}
 
@@ -46,4 +45,19 @@ public class ConvertirBin_Dec extends Red {
 		}
     }
    
+
+    @Override
+    public String getRedClass() {
+        return "";
+    }
+
+    @Override
+    public String getMostrarRed() {
+        return "";
+    }
+
+    @Override
+    public String getMascaraRed() {
+        return "";
+    }
 }

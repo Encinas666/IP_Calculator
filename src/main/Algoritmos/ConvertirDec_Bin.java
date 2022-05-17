@@ -40,7 +40,7 @@ public class ConvertirDec_Bin extends Red{
 		}
     }
 
-	private long[] getRedBin(){
+	private void getRedBin(){
 		try {
 			redBin[0] = Long.parseLong(bin[0]);
 			redBin[1] = Long.parseLong(bin[1]);
@@ -49,11 +49,25 @@ public class ConvertirDec_Bin extends Red{
 		} catch (Exception e) {
 			e.getStackTrace();
 		}
-		return redBin;
 	}
 
 	@Override
     public void run() {
         // TODO
     }
+
+    @Override
+    public String getRedClass() {
+       return "";
+    }
+
+    @Override
+    public String getMostrarRed() {
+        return "";
+    }
+
+    @Override
+    public String getMascaraRed() {
+        return "";
+	}
 }

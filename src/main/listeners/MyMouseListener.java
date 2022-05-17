@@ -1,15 +1,13 @@
 package main.listeners;
 
-import javax.swing.*;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+
+import javax.swing.JPanel;
 
 import main.ValoresIniciales;
 import main.Algoritmos.Opciones;
 import main.Algoritmos.Red;
-
-import java.awt.*;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.image.BufferedImage;
 
 public class MyMouseListener implements MouseListener{
     private Red red;

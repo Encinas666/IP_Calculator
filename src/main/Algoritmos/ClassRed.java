@@ -67,9 +67,10 @@ public class ClassRed extends Red{
         return res;
     }
 
+    //
     @Override
-    public String getClaseRed(){
-        return redclass;
+    public void run() {
+        claseRed();
     }
 
     @Override
@@ -78,7 +79,12 @@ public class ClassRed extends Red{
     }
 
     @Override
-    public void run() {
-        claseRed();
+    public String getRedClass() {
+        return redclass;
+    }
+
+    @Override
+    public String getMascaraRed() {
+        return "";
     }
 }
