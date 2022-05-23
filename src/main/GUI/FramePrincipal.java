@@ -28,7 +28,6 @@ public class FramePrincipal extends JFrame {
 
     public FramePrincipal(){
         init();
-        setIconImage(new ImageIcon(getClass().getResource("src/resource/red1.png")).getImage());
         frame = this;
     }
 
@@ -66,15 +65,6 @@ public class FramePrincipal extends JFrame {
         lblIP.setFont(font);
         lblIP.setForeground(Color.WHITE);
         panel.add(lblIP);
-
-        JLabel lblNMDecimal = new JLabel("255.255.255.0");
-        lblNMDecimal.setBounds(310, 110, 150, 50);
-        lblNMDecimal.setFont(font);
-        lblNMDecimal.setForeground(Color.WHITE);
-        lblNMDecimal.setBorder(BorderFactory.createTitledBorder(null, "NetMask Decimal:",
-        1,0, null, Color.white));
-        //MascaraDeRed.getMascaraDeRed().mascaraDeRed(red);
-        panel.add(lblNMDecimal);
 
         JTextField txtDR = new JTextField("0.0.0.0");
         txtDR.setBounds(250, 80, 200, 25);

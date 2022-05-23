@@ -1,13 +1,12 @@
 package main.Algoritmos.metodos;
 
 import main.ValoresIniciales;
-import main.Algoritmos.ConvertirBin_Dec;
-import main.Algoritmos.ConvertirDec_Bin;
-import main.Algoritmos.Red;
+
 
 public class MascaraDeRed{
     private static MascaraDeRed mr;
     String aux;
+    
 
     public static MascaraDeRed getMascaraDeRed(){
         if (mr == null){
@@ -16,20 +15,13 @@ public class MascaraDeRed{
         return mr;
     }
 
-    public void mascaraDeRed(Red red){
-        if(red instanceof ConvertirBin_Dec){
-            ConvertirBin_Dec cbd = (ConvertirBin_Dec) red;
-            netMaskBin();
-            cbd.MaskD(obtenerOct());
-        }
-        if(red instanceof ConvertirDec_Bin){
-            ConvertirDec_Bin cdb = (ConvertirDec_Bin) red;
-            netMaskBin();
-            cdb.MaskB(obtenerOct());
-        }
+    public String[] mascaraDeRed(){
+        netMaskBin();
+        return obtenerOct();
     }
 
     private void netMaskBin(){
+        ValoresIniciales.op = 1;
         for(int i = 0; i < 32; i++){
             if(aux.length() < ValoresIniciales.mask){
                 aux = aux + 1;

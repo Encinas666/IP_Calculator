@@ -2,8 +2,6 @@ package main;
 
 import java.awt.Color;
 
-import main.Algoritmos.Opciones;
-
 //import main.Algorithms.Opciones;
 
 public class ValoresIniciales {
@@ -15,11 +13,11 @@ public class ValoresIniciales {
     public static final int MAIN_HEIGHT = 310;
 
     public static int mask = 30;
+    public static int op = 0;
 
     public static Color color_principal = new Color(214, 40, 40);
     public static final Color COLOR_FONDO = new Color(0, 0, 0);
     public static Color color_relleno = new Color(255, 255, 255);
     public static final Color COLOR_SECUNDARIO = new Color(0, 111, 251);
 
-    public static Opciones opcion = null;
 }
