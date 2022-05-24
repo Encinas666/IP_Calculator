@@ -19,7 +19,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import main.ValoresIniciales;
-import main.Algoritmos.metodos.MascaraDeRed;
+
 
 public class FramePrincipal extends JFrame {
 

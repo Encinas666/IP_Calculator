@@ -27,7 +27,7 @@ public class NetworkName {
 
     public String networkClass(){
         String redclass = "";
-        if(red[0].getQuadrant()>= 1 && red[0].getQuadrant() < 127){
+        if(red[0].getQuadrant() >= 1 && red[0].getQuadrant() < 127){
             redclass = "Tipo: "+ NetworkType() +"--Clase A";
         }else if(red[0].getQuadrant()>= 127 && red[0].getQuadrant() < 192){
             redclass = "Tipo: "+ NetworkType() +"--Clase B";

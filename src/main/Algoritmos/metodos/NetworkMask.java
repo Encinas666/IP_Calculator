@@ -1,25 +1,34 @@
 package main.Algoritmos.metodos;
 
+import main.Algoritmos.Convert;
+import main.Algoritmos.Quadrant;
 import main.ValoresIniciales;
 
 
-public class MascaraDeRed{
-    private static MascaraDeRed mr;
-    String aux;
+public class NetworkMask{
+    private static NetworkMask mr;
+    private String aux;
+    private Quadrant[] q;
+    private NetworkMask(){
+       q =new Quadrant[4];
+    }
 
-    public static MascaraDeRed getMascaraDeRed(){
+    public static NetworkMask getNetworkMask(){
         if (mr == null){
-           mr = new MascaraDeRed();
+           mr = new NetworkMask();
         }
         return mr;
     }
 
-    public String[] mascaraDeRed(){
-        netMaskBin();
-        return obtenerOct();
+    public String getNetworkMaskM(){
+        Convert c = new Convert();
+        networkMaskBinary();
+        c.convertBin_Dec(obtainQuadrants());
+        q = c.getC();
+        return c.getToString(q);
     }
 
-    private void netMaskBin(){
+    private void networkMaskBinary(){
         ValoresIniciales.op = 1;
         aux = "";
         for(int i = 0; i < 32; i++){
@@ -33,9 +42,8 @@ public class MascaraDeRed{
 
     }
 
-    private String[] obtenerOct(){
+    private String[] obtainQuadrants(){
         String aux2 = aux;
-        System.out.println(aux2);
         String [] oct = new String[4];
         oct[0] = aux.substring(0,8);
         oct[1] = aux.substring(8,16);
@@ -43,4 +51,6 @@ public class MascaraDeRed{
         oct[3] = aux.substring(24,32);
         return oct;
     }
+
+
 }

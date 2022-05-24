@@ -4,9 +4,11 @@ import java.util.ArrayList;
 
 public class Convert {
     private Quadrant[] c;
+	private String[] quadrantBinary;
 
     public Convert(){
-        c = new Quadrant[4];
+		c = new Quadrant[4];
+		quadrantBinary = new String[4];
     }
 
     //metodos de convercion
@@ -25,10 +27,22 @@ public class Convert {
 				exponente++;
 				aux1 = aux1/10;
 			}
-			System.out.println(decimal);
 			c[i] = new Quadrant(decimal);
 			i++;
 		}
+	}
+	public String getToString(Quadrant[] quadrant){
+		String res ="";
+		int i = 0;
+		for (Quadrant c1 : quadrant) {
+			if(i == 3){
+				res = res + c1.getQuadrant();
+			}else{
+				res = res + c1.getQuadrant() + ".";
+			}
+			i++;
+		}
+		return res;
 	}
 
     private void setRed(String[] c1) {
@@ -43,7 +57,6 @@ public class Convert {
 
     public void convertDec_Bin(String[] c1) {
         setRed(c1);
-
         for(int i = 0;i < c.length; i++){
             long x = c[i].getQuadrant();
 			StringBuilder binary = new StringBuilder();
@@ -56,11 +69,57 @@ public class Convert {
 				// Insertar el dígito al inicio de la cadena
 				binary.insert(0, String.valueOf(waste));
 			}
-			c[i] = new Quadrant(Long.parseLong(binary.toString()));
+			quadrantBinary[i] = binary.toString();
 		}
     }
+
+	public Quadrant[] convertToAlphanumeric(String network){
+		Quadrant[] quadrant = new Quadrant[4];
+		boolean res = false;
+		int tamCad = network.length();
+		int aux = 0;
+		int j = 0, i = 0;
+		if(tamCad>=7 && tamCad <= 15){
+			while(i < tamCad){
+				if(network.charAt(i) == '.'){
+					String a = network.substring(aux,i);
+					try{
+						Quadrant x = new Quadrant(Long.parseLong(a));
+						if(x.getQuadrant() >= 0 && x.getQuadrant() < 256){
+							quadrant[j] = x;
+							aux = i+1;
+							j++;
+						}else{
+							break;
+						}
+					}catch(NumberFormatException e){
+						break;
+					}
+				}else if(i == tamCad-1){
+					String a = network.substring(aux,i+1);
+					try{
+						Quadrant x = new Quadrant(Long.parseLong(a));
+						if(x.getQuadrant() >= 0 && x.getQuadrant() < 256){
+							quadrant[j] = x;
+						}else{
+							break;
+						}
+					}catch(NumberFormatException e){
+						e.getMessage();
+						break;
+					}
+				}
+				i++;
+			}
+		}
+		return quadrant;
+	}
 
     public Quadrant[] getC(){
         return c;
     }
+	public String[] getQuadrantBinary(){
+		return quadrantBinary;
+	}
+
 }

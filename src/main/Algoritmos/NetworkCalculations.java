@@ -2,114 +2,83 @@ package main.Algoritmos;
 
 import java.util.ArrayList;
 
-import main.Algoritmos.metodos.MascaraDeRed;
+
+import main.Algoritmos.metodos.NetworkAddress;
+import main.Algoritmos.metodos.NetworkMask;
 import main.Algoritmos.metodos.NetworkName;
 import main.ValoresIniciales;
 
 public class NetworkCalculations{
-    private String red1, netType, netMask, broadcast, firstIp, lastIp, ipAvailable, subnetAddress;;
+    private String networkType, networkMask, broadcast, firstIp, lastIp, ipAvailable, networkAddress, network, binary;
     private Quadrant[] quadrant;
-
+    private String[] quadrantBinary;
     private Convert c;
 
 
-    public NetworkCalculations(String red1){
-        this.red1 = red1;
+    public NetworkCalculations(String network){
+        this.network = network;
         quadrant = new Quadrant[4];
-        netMask = "";
-        netType ="";
+        quadrantBinary = new String[4];
+        networkType = "";
+        networkMask ="";
+        broadcast = "";
         firstIp = "";
         lastIp = "";
         ipAvailable = "";
-        subnetAddress = "";
+        networkAddress = "";
+        binary = "";
         c = new Convert();
     }
 
     public void networkCalculations(){
-        netType = NetworkName.geNetworkName(getQuadrants(),red1).networkClass();
-        setNetworkQuadrants();
+
+        networkType = NetworkName.geNetworkName(getQuadrants(),network).networkClass();
+        networkAddress = NetworkAddress.geNetworkAddress(quadrantBinary).getNetworkAddress();
+        networkMask = NetworkMask.getNetworkMask().getNetworkMaskM();
     }
 
     //metodos auxiliares
-    public String getNetCal(){
-        String res ="";
-        int i = 0;
-        for (Quadrant c1 : quadrant) {
-            if(i == 3){
-                res = res + c1.getQuadrant();
-            }else{
-                res = res + c1.getQuadrant() + ".";
-            }
-            i++;
-        }
-        return res;
-    }
+        //metodo temporal para que funcione obtener el broadcast
+    private void networkBinary(){
 
-    private void convertAlfaNumerico(){
-        boolean res = false;
-        int tamCad = red1.length();
-        int aux = 0;
-        int j = 0, i = 0;
-        if(tamCad>=7 && tamCad <= 15){
-            while(i < tamCad){
-                if(red1.charAt(i) == '.'){
-                    String a = red1.substring(aux,i);
-                    try{
-                        Quadrant x = new Quadrant(Long.parseLong(a));
-                        if(x.getQuadrant() >= 0 && x.getQuadrant() < 256){
-                            quadrant[j] = x;
-                            aux = i+1;
-                            j++;
-                        }else{
-                            break;
-                        }
-                    }catch(NumberFormatException e){
-                        break;
-                    }
-                }else if(i == tamCad-1){
-                    String a = red1.substring(aux,i+1);
-                    try{
-                        Quadrant x = new Quadrant(Long.parseLong(a));
-                        if(x.getQuadrant() >= 0 && x.getQuadrant() < 256){
-                            quadrant[j] = x;
-                        }else{
-                            break;
-                        }
-                    }catch(NumberFormatException e){
-                        e.getMessage();
-                        break;
-                    }
+        quadrantBinary[0] = ""+quadrant[0].getQuadrant();
+        quadrantBinary[1] = ""+quadrant[1].getQuadrant();
+        quadrantBinary[2] = ""+quadrant[2].getQuadrant();
+        quadrantBinary[3] = ""+quadrant[3].getQuadrant();
+        c.convertDec_Bin(quadrantBinary);
+        quadrantBinary = c.getQuadrantBinary();
+        for (int i = 0; i < quadrant.length; i++){
+            int sizeQuadrant = quadrantBinary[i].length();
+            if(sizeQuadrant != 8){
+                String aux = "0";
+                for (int j = 0; j < 7-sizeQuadrant; j++){
+                    aux = aux + "0";
                 }
-                i++;
+                aux = aux + quadrantBinary[i];
+                quadrantBinary[i] = aux;
             }
         }
     }
 
-    public void setClassRed(String NameRed){
-        netType = NameRed;
-    }
-
-    public void setNetworkQuadrants(){
-        String[] NM =MascaraDeRed.getMascaraDeRed().mascaraDeRed();
-        c.convertBin_Dec(NM);
-        setQuadrant(c.getC());
-        netMask = getNetCal();
-    }
 
     //Metodos auxiliares
     public Quadrant[] getQuadrants() {
         return quadrant;
     }
+    public void setQuadrant(){
+        this.quadrant = c.convertToAlphanumeric(network);
+    }
+
     public void setQuadrant(Quadrant[] quadrant){
         this.quadrant = quadrant;
     }
 
-    public String getNetMask() {
-        return netMask;
+    public String getNetworkMask() {
+        return networkMask;
     }
 
-    public String getType() {
-        return netType;
+    public String getTypeNetwork() {
+        return networkType;
     }
 
     public String getBroadcast() {
@@ -128,17 +97,30 @@ public class NetworkCalculations{
         return ipAvailable;
     }
 
-    public String getSubnetAddress() {
-        return subnetAddress;
+    public String getNetworkAddress() {
+        return networkAddress;
+    }
+    public String getNetworkBinary(){
+        int i = 0;
+        for (String c1 : quadrantBinary) {
+            if(i == 3){
+                binary = binary + c1;
+            }else{
+                binary = binary + c1 + ".";
+            }
+            i++;
+        }
+        return binary;
     }
 
-    public String getNet(){
-        red1 = red1 + "/" + ValoresIniciales.mask;
-        return red1;
+    public String getNetwork(){
+        network = network + "/" + ValoresIniciales.mask;
+        return network;
     }
     /*--------------------------------------------------------------------------------------------------------*/
     public void run() {
-        convertAlfaNumerico();
+        setQuadrant();
+        networkBinary();
         networkCalculations();
     }
 }

@@ -11,11 +11,8 @@ public class Panel extends JPanel {
     //private Red red1;
     private NetworkCalculations cr;
 
-    JLabel broadcast;
-    JLabel binario;
-    JLabel red;
-    JLabel lblNMDecimal;
-    JLabel rangoHost;
+    JLabel broadcast, networkAddress, networkType, networkMask,binary, network, hostRange;
+
     public Panel() {
         init();
     }
@@ -34,25 +31,23 @@ public class Panel extends JPanel {
         Font font = new Font("Arial", Font.PLAIN, 15);
         Border border = BorderFactory.createEmptyBorder();
 
-        red = new JLabel();
-        red.setBounds(40,  40, 300, 50);
-        red.setFont(font);
-        red.setForeground(Color.WHITE);
-        red.setBorder(border("Red:"));
+        network= new JLabel();
+        network.setBounds(40,  40, 300, 50);
+        network.setFont(font);
+        network.setForeground(Color.WHITE);
+        network.setBorder(border("Network"));
 
-        lblNMDecimal = new JLabel();
-        lblNMDecimal.setBounds(40, 100, 300, 50);
-        lblNMDecimal.setFont(font);
-        lblNMDecimal.setForeground(Color.WHITE);
-        lblNMDecimal.setBorder(border("Mascara de red:"));
+        networkAddress = new JLabel();
+        networkAddress.setBounds(40,  100, 300, 50);
+        networkAddress.setFont(font);
+        networkAddress.setForeground(Color.WHITE);
+        networkAddress.setBorder(border("Red:"));
 
-        lblNMDecimal.setText("");
-
-        rangoHost = new JLabel();
-        rangoHost.setBounds(40,  160, 300, 50);
-        rangoHost.setFont(font);
-        rangoHost.setForeground(Color.WHITE);
-        rangoHost.setBorder(border("Rango host:"));
+        networkMask = new JLabel();
+        networkMask.setBounds(40, 160, 300, 50);
+        networkMask.setFont(font);
+        networkMask.setForeground(Color.WHITE);
+        networkMask.setBorder(border("Mascara de red:"));
 
         broadcast = new JLabel();
         broadcast.setBounds(40,  220, 300, 50);
@@ -60,17 +55,24 @@ public class Panel extends JPanel {
         broadcast.setForeground(Color.WHITE);
         broadcast.setBorder(border("Broadcast:"));
 
-        binario = new JLabel();
-        binario.setBounds(40,  280, 300, 50);
-        binario.setFont(font);
-        binario.setForeground(Color.WHITE);
-        binario.setBorder(border("Binario:"));
+        hostRange = new JLabel();
+        hostRange.setBounds(40,  280, 300, 50);
+        hostRange.setFont(font);
+        hostRange.setForeground(Color.WHITE);
+        hostRange.setBorder(border("Rango host:"));
 
-        this.add(red);
-        this.add(rangoHost);
+        binary = new JLabel();
+        binary.setBounds(40,  340, 300, 50);
+        binary.setFont(font);
+        binary.setForeground(Color.WHITE);
+        binary.setBorder(border("Binario:"));
+
+        this.add(network);
+        this.add(networkAddress);
+        this.add(networkMask);
         this.add(broadcast);
-        this.add(binario);
-        this.add(lblNMDecimal);
+        this.add(hostRange);
+        this.add(binary);
     }
 
     public Border border(String title){
@@ -83,12 +85,11 @@ public class Panel extends JPanel {
 
     public void setLblText(){
         cr.run();
-        System.out.println(cr.getType());
-        this.setBorder(borderTitle(cr.getType()));
-        red.setText(cr.getNet());
-        lblNMDecimal.setText(cr.getNetMask());
-
-
+        this.setBorder(borderTitle(cr.getTypeNetwork()));
+        network.setText(cr.getNetwork());
+        networkAddress.setText(cr.getNetworkAddress());
+        networkMask.setText(cr.getNetworkMask());
+        binary.setText(cr.getNetworkBinary());
     }
 
 }

@@ -13,6 +13,7 @@ public class ValoresIniciales {
     public static final int MAIN_HEIGHT = 310;
 
     public static int mask = 30;
+    public static int bitsHost = 0;
     public static int op = 0;
 
     public static Color color_principal = new Color(214, 40, 40);
