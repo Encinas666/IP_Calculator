@@ -77,7 +77,7 @@ public class FramePrincipal extends JFrame {
         }
         panel.add(bits);
 
-        selectionBits(bits);
+
         
 
         JButton calcular = new JButton("<html><span style='font-size:10px'>"+"Calcular"+"</span></html>");
@@ -92,6 +92,7 @@ public class FramePrincipal extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if(isACorrectIp(txtDR.getText()) == true){
+                    selectionBits(bits);
                     new FrameContenedor(txtDR.getText());
                     frame.setState(Frame.ICONIFIED);
                 }else{
@@ -156,7 +157,6 @@ public class FramePrincipal extends JFrame {
 
     private void selectionBits(JComboBox<String> bits){
         int op = bits.getSelectedIndex();
-
         switch(op){
             case 0: ValoresIniciales.mask = 1; break;
             case 1: ValoresIniciales.mask = 2; break;

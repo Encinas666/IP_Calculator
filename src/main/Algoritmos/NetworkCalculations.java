@@ -4,18 +4,18 @@ import java.util.ArrayList;
 
 import main.Algoritmos.metodos.MascaraDeRed;
 import main.Algoritmos.metodos.NetworkName;
+import main.ValoresIniciales;
 
-public class NetworkCalculations extends Red{
-    private String red1;
-    private ArrayList<Quadrant> quadrant;
-    private String netType, netMask, broadcast, firstIp, lastIp, ipAvailable, subnetAddress;
+public class NetworkCalculations{
+    private String red1, netType, netMask, broadcast, firstIp, lastIp, ipAvailable, subnetAddress;;
+    private Quadrant[] quadrant;
 
-    Convert c;
+    private Convert c;
 
 
     public NetworkCalculations(String red1){
         this.red1 = red1;
-        quadrant = new ArrayList<>();
+        quadrant = new Quadrant[4];
         netMask = "";
         netType ="";
         firstIp = "";
@@ -26,33 +26,62 @@ public class NetworkCalculations extends Red{
     }
 
     public void networkCalculations(){
-        convertAlfaNumerico();
-        netType = NetworkName.geNetworkName(quadrant,red1).networkClass();
+        netType = NetworkName.geNetworkName(getQuadrants(),red1).networkClass();
         setNetworkQuadrants();
     }
 
     //metodos auxiliares
-    public String getNet(ArrayList<Quadrant> c){
+    public String getNetCal(){
         String res ="";
         int i = 0;
-        for (Quadrant c1 : c) {
+        for (Quadrant c1 : quadrant) {
             if(i == 3){
                 res = res + c1.getQuadrant();
             }else{
-                res = res +"."+ c1.getQuadrant();
+                res = res + c1.getQuadrant() + ".";
             }
+            i++;
         }
         return res;
     }
 
     private void convertAlfaNumerico(){
-        try{
-            String[] r = red1.split(".");
-            for (int i = 0; i < r.length; i++){
-                quadrant.add(new Quadrant(Long.parseLong(r[i])));
+        boolean res = false;
+        int tamCad = red1.length();
+        int aux = 0;
+        int j = 0, i = 0;
+        if(tamCad>=7 && tamCad <= 15){
+            while(i < tamCad){
+                if(red1.charAt(i) == '.'){
+                    String a = red1.substring(aux,i);
+                    try{
+                        Quadrant x = new Quadrant(Long.parseLong(a));
+                        if(x.getQuadrant() >= 0 && x.getQuadrant() < 256){
+                            quadrant[j] = x;
+                            aux = i+1;
+                            j++;
+                        }else{
+                            break;
+                        }
+                    }catch(NumberFormatException e){
+                        break;
+                    }
+                }else if(i == tamCad-1){
+                    String a = red1.substring(aux,i+1);
+                    try{
+                        Quadrant x = new Quadrant(Long.parseLong(a));
+                        if(x.getQuadrant() >= 0 && x.getQuadrant() < 256){
+                            quadrant[j] = x;
+                        }else{
+                            break;
+                        }
+                    }catch(NumberFormatException e){
+                        e.getMessage();
+                        break;
+                    }
+                }
+                i++;
             }
-        }catch(NumberFormatException e){
-            e.getMessage();
         }
     }
 
@@ -63,59 +92,53 @@ public class NetworkCalculations extends Red{
     public void setNetworkQuadrants(){
         String[] NM =MascaraDeRed.getMascaraDeRed().mascaraDeRed();
         c.convertBin_Dec(NM);
-        quadrant = c.getC();
-        netMask = getNet(quadrant);
-    }
-
-    public void recalculate(){
-        this.quadrant.clear();
-        networkCalculations();
+        setQuadrant(c.getC());
+        netMask = getNetCal();
     }
 
     //Metodos auxiliares
-
-    @Override
-    public void run() {
-        networkCalculations();
-    }
-
-    @Override
-    public ArrayList<Quadrant> getQuadrants() {
+    public Quadrant[] getQuadrants() {
         return quadrant;
     }
+    public void setQuadrant(Quadrant[] quadrant){
+        this.quadrant = quadrant;
+    }
 
-    @Override
     public String getNetMask() {
         return netMask;
     }
 
-    @Override
     public String getType() {
         return netType;
     }
 
-    @Override
     public String getBroadcast() {
         return broadcast;
     }
 
-    @Override
-    public String getFirstaIp() {
+    public String getFirstIp() {
         return firstIp;
     }
 
-    @Override
     public String getLastIp() {
         return lastIp;
     }
 
-    @Override
     public String getIpAvailable() {
         return ipAvailable;
     }
 
-    @Override
     public String getSubnetAddress() {
         return subnetAddress;
+    }
+
+    public String getNet(){
+        red1 = red1 + "/" + ValoresIniciales.mask;
+        return red1;
+    }
+    /*--------------------------------------------------------------------------------------------------------*/
+    public void run() {
+        convertAlfaNumerico();
+        networkCalculations();
     }
 }

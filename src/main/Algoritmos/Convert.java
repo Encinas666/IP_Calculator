@@ -3,39 +3,38 @@ package main.Algoritmos;
 import java.util.ArrayList;
 
 public class Convert {
-    private ArrayList<Quadrant> c;
+    private Quadrant[] c;
 
     public Convert(){
-        c = new ArrayList<>();
+        c = new Quadrant[4];
     }
 
     //metodos de convercion
     public void convertBin_Dec(String[] c1){
 		setRed(c1);
-
-		final long divisor = 10;
-		int y = 0;
-
-		for(int x = 0;x < c.size(); x++){
-			Quadrant h = c.get(x);
-			int digito = 0;
-			int decimal = 0;
-			for (long i = h.getQuadrant(), j = 0; i>0; i/=divisor, j++) {
-				digito = (int)(i%divisor);
-				if (digito != 0 && digito !=1) {
-					c.set(y, new Quadrant(-1));
-				}
-				decimal += digito +Math.pow(2,j);
+		long aux1, digito, decimal;
+		int exponente;
+		int i = 0;
+		for (Quadrant aux:c){
+			aux1 = aux.getQuadrant();
+			exponente = 0;
+			decimal = 0;
+			while (aux1 != 0){
+				digito = aux1 % 10;
+				decimal = decimal + digito * (int)Math.pow(2,exponente);
+				exponente++;
+				aux1 = aux1/10;
 			}
-			c.set(y, new Quadrant(decimal));
-			y++;
+			System.out.println(decimal);
+			c[i] = new Quadrant(decimal);
+			i++;
 		}
 	}
 
     private void setRed(String[] c1) {
         try {
 			for (int i = 0; i < c1.length; i++){
-                c.add(new Quadrant(Long.parseLong(c1[i])));
+                c[i] = new Quadrant(Long.parseLong(c1[i]));
             }
 		} catch (Exception e) {
 			e.getStackTrace();
@@ -44,10 +43,9 @@ public class Convert {
 
     public void convertDec_Bin(String[] c1) {
         setRed(c1);
-		int j = 0;
 
-        for(int i = 0;i < c.size(); i++){
-            long x = c.get(i).getQuadrant();
+        for(int i = 0;i < c.length; i++){
+            long x = c[i].getQuadrant();
 			StringBuilder binary = new StringBuilder();
 			if (x <= 0) {
 				binary.insert(0, "0");
@@ -58,12 +56,11 @@ public class Convert {
 				// Insertar el dígito al inicio de la cadena
 				binary.insert(0, String.valueOf(waste));
 			}
-			c.set(j, new Quadrant(Long.parseLong(binary.toString())));
-			j++;
+			c[i] = new Quadrant(Long.parseLong(binary.toString()));
 		}
     }
 
-    public ArrayList<Quadrant> getC(){
+    public Quadrant[] getC(){
         return c;
     }
 }
