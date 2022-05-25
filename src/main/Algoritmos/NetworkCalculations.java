@@ -3,6 +3,7 @@ package main.Algoritmos;
 import java.util.ArrayList;
 
 
+import main.Algoritmos.metodos.Broadcast;
 import main.Algoritmos.metodos.NetworkAddress;
 import main.Algoritmos.metodos.NetworkMask;
 import main.Algoritmos.metodos.NetworkName;
@@ -31,16 +32,24 @@ public class NetworkCalculations{
     }
 
     public void networkCalculations(){
-
         networkType = NetworkName.geNetworkName(getQuadrants(),network).networkClass();
         networkAddress = NetworkAddress.geNetworkAddress(quadrantBinary).getNetworkAddress();
         networkMask = NetworkMask.getNetworkMask().getNetworkMaskM();
+        broadcast = Broadcast.getBroadcast().getBroadcastM(quadrantBinary);
+        //imprimir en consola
+        for(int i=0;i<quadrantBinary.length;i++){
+            System.out.print(quadrantBinary[i] + "/");
+        }
+        System.out.println();
+        System.out.println("tipo: " + networkType);
+        System.out.println("Mask: " + networkMask);
+        System.out.println("Dir RED: " + networkAddress);
+        System.out.println("broadcast: " + broadcast);
     }
 
     //metodos auxiliares
         //metodo temporal para que funcione obtener el broadcast
     private void networkBinary(){
-
         quadrantBinary[0] = ""+quadrant[0].getQuadrant();
         quadrantBinary[1] = ""+quadrant[1].getQuadrant();
         quadrantBinary[2] = ""+quadrant[2].getQuadrant();

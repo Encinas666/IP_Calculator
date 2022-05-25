@@ -1,13 +1,11 @@
 package main.GUI;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
+import java.awt.*;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import main.Algoritmos.NetworkCalculations;
-//import main.Algoritmos.Red;
 import main.ValoresIniciales;
 
 public class FrameContenedor extends JFrame{
@@ -16,11 +14,15 @@ public class FrameContenedor extends JFrame{
     public FrameContenedor(String red){
         super("Calculos");
         JPanel pCalculate = new Panel(red);
-        this.add(pCalculate, BorderLayout.CENTER);
-        init(pCalculate);
+        JPanel subnetworkCalculation = new Panel();
+        pCalculate.setBounds(10, 10,ValoresIniciales.MAX_WIDTH-20, ValoresIniciales.MAX_HEIGHT-200);
+        subnetworkCalculation.setBounds(10, 400,ValoresIniciales.MAX_WIDTH-20, ValoresIniciales.MAX_HEIGHT-400);
+        this.add(pCalculate);
+        this.add(subnetworkCalculation);
+        init();
 
     }
-    private void init(JPanel panel){
+    private void init(){
         this.setSize(ValoresIniciales.MAX_WIDTH, ValoresIniciales.MAX_HEIGHT);
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);

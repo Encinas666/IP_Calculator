@@ -39,7 +39,6 @@ public class NetworkMask{
                 aux = aux + 0;
             }
         }
-
     }
 
     private String[] obtainQuadrants(){

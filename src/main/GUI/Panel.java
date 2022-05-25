@@ -1,6 +1,7 @@
 package main.GUI;
 
 import main.Algoritmos.NetworkCalculations;
+import main.ValoresIniciales;
 
 
 import javax.swing.*;
@@ -12,6 +13,8 @@ public class Panel extends JPanel {
     private NetworkCalculations cr;
 
     JLabel broadcast, networkAddress, networkType, networkMask,binary, network, hostRange;
+    JButton list;
+
 
     public Panel() {
         init();
@@ -73,6 +76,15 @@ public class Panel extends JPanel {
         this.add(broadcast);
         this.add(hostRange);
         this.add(binary);
+        networkCalculationsM(this);
+    }
+
+    private Panel networkCalculationsM(Panel networkCalculations){
+        return networkCalculations;
+    }
+
+    private Panel subnetworkCalculations(Panel SNC){
+        return SNC;
     }
 
     public Border border(String title){
@@ -90,6 +102,7 @@ public class Panel extends JPanel {
         networkAddress.setText(cr.getNetworkAddress());
         networkMask.setText(cr.getNetworkMask());
         binary.setText(cr.getNetworkBinary());
+        broadcast.setText(cr.getBroadcast());
     }
 
 }
