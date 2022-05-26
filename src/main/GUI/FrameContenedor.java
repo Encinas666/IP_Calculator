@@ -5,19 +5,18 @@ import java.awt.*;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import main.Algoritmos.NetworkCalculations;
 import main.ValoresIniciales;
 
 public class FrameContenedor extends JFrame{
-   // panel de calculos
+   // panel de calculators
     //private Red red1;
     public FrameContenedor(String red){
-        super("Calculos");
-        JPanel pCalculate = new Panel(red);
+        super("Calculators");
+        JPanel networkCalculators = new Panel(red);
         JPanel subnetworkCalculation = new Panel();
-        pCalculate.setBounds(10, 10,ValoresIniciales.MAX_WIDTH-20, ValoresIniciales.MAX_HEIGHT-200);
+        networkCalculators.setBounds(10, 10,ValoresIniciales.MAX_WIDTH-20, ValoresIniciales.MAX_HEIGHT-200);
         subnetworkCalculation.setBounds(10, 400,ValoresIniciales.MAX_WIDTH-20, ValoresIniciales.MAX_HEIGHT-400);
-        this.add(pCalculate);
+        this.add(networkCalculators);
         this.add(subnetworkCalculation);
         init();
 

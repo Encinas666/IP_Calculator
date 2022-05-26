@@ -1,42 +1,35 @@
 package main.Algoritmos.metodos;
 
-import java.util.ArrayList;
-
-import javax.swing.JPanel;
-
-import main.ValoresIniciales;
 import main.Algoritmos.Quadrant;
 
 public class NetworkName {
     private static NetworkName nr;
-    private String red1;
-    private Quadrant[] red;
+    private final Quadrant[] red;
 
-    private NetworkName( Quadrant[] red, String red1){
+    private NetworkName( Quadrant[] red){
         this.red=red;
-        this.red1 = red1;
     }
 
 
-    public static NetworkName geNetworkName(Quadrant[] red, String red1){
+    public static NetworkName geNetworkName(Quadrant[] red){
         if (nr == null){
-           nr = new NetworkName(red, red1);
+           nr = new NetworkName(red);
         }
         return nr;
     }
 
     public String networkClass(){
         String redclass = "";
-        if(red[0].getQuadrant() >= 1 && red[0].getQuadrant() < 127){
-            redclass = "Tipo: "+ NetworkType() +"--Clase A";
-        }else if(red[0].getQuadrant()>= 127 && red[0].getQuadrant() < 192){
-            redclass = "Tipo: "+ NetworkType() +"--Clase B";
-        }else if(red[0].getQuadrant()>= 192 && red[0].getQuadrant() < 224){
-            redclass = "Tipo: "+ NetworkType() +"--Clase C";
-        }else if(red[0].getQuadrant()>= 224 && red[0].getQuadrant() < 240){
-            redclass = "Tipo: "+ NetworkType() + "--Clase D";
-        }else if(red[0].getQuadrant()>= 240 && red[0].getQuadrant() < 256){
-            redclass = "Tipo: "+ NetworkType() +"--Clase E";
+        if(red[0].quadrant() >= 1 && red[0].quadrant() < 127){
+            redclass = "Type: "+ NetworkType() +"--ClassA";
+        }else if(red[0].quadrant()>= 127 && red[0].quadrant() < 192){
+            redclass = "Type: "+ NetworkType() +"--Class B";
+        }else if(red[0].quadrant()>= 192 && red[0].quadrant() < 224){
+            redclass = "Type: "+ NetworkType() +"--Class C";
+        }else if(red[0].quadrant()>= 224 && red[0].quadrant() < 240){
+            redclass = "Type: "+ NetworkType() + "--Class D";
+        }else if(red[0].quadrant()>= 240 && red[0].quadrant() < 256){
+            redclass = "Type: "+ NetworkType() +"--Class E";
         }
         return redclass;
     }
@@ -44,14 +37,14 @@ public class NetworkName {
     //Metodos auxiliares
     private String NetworkType(){
         String res;
-        if(red[0].getQuadrant() == 10 && red[1].getQuadrant() >= 0 && red[1].getQuadrant() <= 255){
-            res = "Red Privada";
-        }else if(red[0].getQuadrant() == 172 &&  red[1].getQuadrant() >= 16 &&  red[1].getQuadrant()<= 31){
-            res = "Red Privada";
-        }else if(red[0].getQuadrant() == 198 && red[1].getQuadrant() == 168){
-            res = "Red Privada";
+        if(red[0].quadrant() == 10 && red[1].quadrant() >= 0 && red[1].quadrant() <= 255){
+            res = "PRIVATE NETWORK";
+        }else if(red[0].quadrant() == 172 &&  red[1].quadrant() >= 16 &&  red[1].quadrant()<= 31){
+            res = "PRIVATE NETWORK";
+        }else if(red[0].quadrant() == 198 && red[1].quadrant() == 168){
+            res = "PRIVATE NETWORK";
         }else{
-            res = "Red Publica";
+            res = "PUBLIC NETWORK";
         }
         return res;
     }

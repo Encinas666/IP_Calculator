@@ -28,6 +28,7 @@ public class NetworkMask{
         return c.getToString(q);
     }
 
+    @SuppressWarnings("StringConcatenationInLoop")
     private void networkMaskBinary(){
         ValoresIniciales.op = 1;
         aux = "";
@@ -42,7 +43,6 @@ public class NetworkMask{
     }
 
     private String[] obtainQuadrants(){
-        String aux2 = aux;
         String [] oct = new String[4];
         oct[0] = aux.substring(0,8);
         oct[1] = aux.substring(8,16);

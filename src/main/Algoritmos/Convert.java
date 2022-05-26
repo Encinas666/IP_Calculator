@@ -1,10 +1,7 @@
 package main.Algoritmos;
-
-import java.util.ArrayList;
-
 public class Convert {
-    private Quadrant[] c;
-	private String[] quadrantBinary;
+    private final Quadrant[] c;
+	private final String[] quadrantBinary;
 
     public Convert(){
 		c = new Quadrant[4];
@@ -18,7 +15,7 @@ public class Convert {
 		int exponente;
 		int i = 0;
 		for (Quadrant aux:c){
-			aux1 = aux.getQuadrant();
+			aux1 = aux.quadrant();
 			exponente = 0;
 			decimal = 0;
 			while (aux1 != 0){
@@ -32,17 +29,17 @@ public class Convert {
 		}
 	}
 	public String getToString(Quadrant[] quadrant){
-		String res ="";
+		StringBuilder res = new StringBuilder();
 		int i = 0;
 		for (Quadrant c1 : quadrant) {
 			if(i == 3){
-				res = res + c1.getQuadrant();
+				res.append(c1.quadrant());
 			}else{
-				res = res + c1.getQuadrant() + ".";
+				res.append(c1.quadrant()).append(".");
 			}
 			i++;
 		}
-		return res;
+		return res.toString();
 	}
 
     private void setRed(String[] c1) {
@@ -58,7 +55,7 @@ public class Convert {
     public void convertDec_Bin(String[] c1) {
         setRed(c1);
         for(int i = 0;i < c.length; i++){
-            long x = c[i].getQuadrant();
+            long x = c[i].quadrant();
 			StringBuilder binary = new StringBuilder();
 			if (x <= 0) {
 				binary.insert(0, "0");
@@ -75,7 +72,6 @@ public class Convert {
 
 	public Quadrant[] convertToAlphanumeric(String network){
 		Quadrant[] quadrant = new Quadrant[4];
-		boolean res = false;
 		int tamCad = network.length();
 		int aux = 0;
 		int j = 0, i = 0;
@@ -85,7 +81,7 @@ public class Convert {
 					String a = network.substring(aux,i);
 					try{
 						Quadrant x = new Quadrant(Long.parseLong(a));
-						if(x.getQuadrant() >= 0 && x.getQuadrant() < 256){
+						if(x.quadrant() >= 0 && x.quadrant() < 256){
 							quadrant[j] = x;
 							aux = i+1;
 							j++;
@@ -99,13 +95,13 @@ public class Convert {
 					String a = network.substring(aux,i+1);
 					try{
 						Quadrant x = new Quadrant(Long.parseLong(a));
-						if(x.getQuadrant() >= 0 && x.getQuadrant() < 256){
+						if(x.quadrant() >= 0 && x.quadrant() < 256){
 							quadrant[j] = x;
 						}else{
 							break;
 						}
 					}catch(NumberFormatException e){
-						e.getMessage();
+						e.getStackTrace();
 						break;
 					}
 				}

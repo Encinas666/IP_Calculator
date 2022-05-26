@@ -1,26 +1,20 @@
 package main.GUI;
 
 import main.Algoritmos.NetworkCalculations;
-import main.ValoresIniciales;
-
 
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
-
 public class Panel extends JPanel {
     //private Red red1;
     private NetworkCalculations cr;
 
-    JLabel broadcast, networkAddress, networkType, networkMask,binary, network, hostRange;
-    JButton list;
-
-
+     private JLabel broadcast, networkAddress, networkMask,binary, network, hostRange;
     public Panel() {
         init();
     }
 
-    //Informacion del calculo
+    //Information del calculo
     public Panel(String red) {
         this();
         cr = new NetworkCalculations(red);
@@ -32,7 +26,6 @@ public class Panel extends JPanel {
         this.setBackground(Color.BLACK);
 
         Font font = new Font("Arial", Font.PLAIN, 15);
-        Border border = BorderFactory.createEmptyBorder();
 
         network= new JLabel();
         network.setBounds(40,  40, 300, 50);
@@ -44,13 +37,13 @@ public class Panel extends JPanel {
         networkAddress.setBounds(40,  100, 300, 50);
         networkAddress.setFont(font);
         networkAddress.setForeground(Color.WHITE);
-        networkAddress.setBorder(border("Red:"));
+        networkAddress.setBorder(border(" Network Address:"));
 
         networkMask = new JLabel();
         networkMask.setBounds(40, 160, 300, 50);
         networkMask.setFont(font);
         networkMask.setForeground(Color.WHITE);
-        networkMask.setBorder(border("Mascara de red:"));
+        networkMask.setBorder(border("Network Mask:"));
 
         broadcast = new JLabel();
         broadcast.setBounds(40,  220, 300, 50);
@@ -62,13 +55,13 @@ public class Panel extends JPanel {
         hostRange.setBounds(40,  280, 300, 50);
         hostRange.setFont(font);
         hostRange.setForeground(Color.WHITE);
-        hostRange.setBorder(border("Rango host:"));
+
 
         binary = new JLabel();
-        binary.setBounds(40,  340, 300, 50);
+        binary.setBounds(15,  340, 350, 50);
         binary.setFont(font);
         binary.setForeground(Color.WHITE);
-        binary.setBorder(border("Binario:"));
+        binary.setBorder(BorderFactory.createTitledBorder(null, "Binary",2,0, null, Color.white));
 
         this.add(network);
         this.add(networkAddress);
@@ -76,15 +69,6 @@ public class Panel extends JPanel {
         this.add(broadcast);
         this.add(hostRange);
         this.add(binary);
-        networkCalculationsM(this);
-    }
-
-    private Panel networkCalculationsM(Panel networkCalculations){
-        return networkCalculations;
-    }
-
-    private Panel subnetworkCalculations(Panel SNC){
-        return SNC;
     }
 
     public Border border(String title){
@@ -98,11 +82,12 @@ public class Panel extends JPanel {
     public void setLblText(){
         cr.run();
         this.setBorder(borderTitle(cr.getTypeNetwork()));
+        hostRange.setBorder(border("Host Range("+cr.getIpAvailable()+"):"));
         network.setText(cr.getNetwork());
         networkAddress.setText(cr.getNetworkAddress());
         networkMask.setText(cr.getNetworkMask());
         binary.setText(cr.getNetworkBinary());
         broadcast.setText(cr.getBroadcast());
+        hostRange.setText(cr.getHostRange());
     }
-
 }

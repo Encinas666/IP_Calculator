@@ -6,9 +6,9 @@ import main.ValoresIniciales;
 
 public class NetworkAddress {
     private static NetworkAddress NA;
-    private String[] quadrantBinary;
+    private final String[] quadrantBinary;
     private Quadrant[] q;
-    private Convert c;
+    private final Convert c;
 
     private NetworkAddress( String[] quadrantBinary){
         this.quadrantBinary = quadrantBinary;
@@ -23,27 +23,23 @@ public class NetworkAddress {
         return NA;
     }
 
-    public void run(){
-
-    }
-
     public String[] networkAddressM(){
         String[] binaryNA = new String[4];
         int i = 0 , y = 0;
         for (String aux:quadrantBinary) {
             int x = 0;
-            String networkAddress = "";
+            StringBuilder networkAddress = new StringBuilder();
             for (int j = 0; j < aux.length(); j++){
                 if(y < ValoresIniciales.mask){
-                    networkAddress = networkAddress + aux.charAt(x);
+                    networkAddress.append(aux.charAt(x));
                     x++;
                 }else{
-                    networkAddress = networkAddress + "0";
+                    networkAddress.append("0");
                 }
                 y++;
             }
             System.out.println(networkAddress);
-            binaryNA[i] = networkAddress;
+            binaryNA[i] = networkAddress.toString();
             i++;
         }
         return binaryNA;

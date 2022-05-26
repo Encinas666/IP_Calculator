@@ -1,17 +1,35 @@
 package main.Algoritmos;
 
-public class Quadrant {
-    private long quadrant;
-    
-    public Quadrant(long quadrant){
+import java.util.Objects;
+
+public final class Quadrant {
+    private final long quadrant;
+
+    public Quadrant(long quadrant) {
         this.quadrant = quadrant;
     }
 
-    public long getQuadrant() {
+    public long quadrant() {
         return quadrant;
     }
 
-    public void setQuadrant(long quadrant) {
-        this.quadrant = quadrant;
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) return true;
+        if (obj == null || obj.getClass() != this.getClass()) return false;
+        var that = (Quadrant) obj;
+        return this.quadrant == that.quadrant;
     }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(quadrant);
+    }
+
+    @Override
+    public String toString() {
+        return "Quadrant[" +
+                "quadrant=" + quadrant + ']';
+    }
+
 }

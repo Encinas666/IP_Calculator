@@ -1,19 +1,14 @@
 package main.Algoritmos;
 
-import java.util.ArrayList;
-
-
-import main.Algoritmos.metodos.Broadcast;
-import main.Algoritmos.metodos.NetworkAddress;
-import main.Algoritmos.metodos.NetworkMask;
-import main.Algoritmos.metodos.NetworkName;
+import main.Algoritmos.metodos.*;
 import main.ValoresIniciales;
 
 public class NetworkCalculations{
-    private String networkType, networkMask, broadcast, firstIp, lastIp, ipAvailable, networkAddress, network, binary;
+    private String networkType, networkMask, broadcast, networkAddress, network, binary, hostRange;
+    private String ipAvailable;
     private Quadrant[] quadrant;
     private String[] quadrantBinary;
-    private Convert c;
+    private final Convert c;
 
 
     public NetworkCalculations(String network){
@@ -23,8 +18,7 @@ public class NetworkCalculations{
         networkType = "";
         networkMask ="";
         broadcast = "";
-        firstIp = "";
-        lastIp = "";
+        hostRange = "";
         ipAvailable = "";
         networkAddress = "";
         binary = "";
@@ -32,13 +26,15 @@ public class NetworkCalculations{
     }
 
     public void networkCalculations(){
-        networkType = NetworkName.geNetworkName(getQuadrants(),network).networkClass();
+        networkType = NetworkName.geNetworkName(getQuadrants()).networkClass();
         networkAddress = NetworkAddress.geNetworkAddress(quadrantBinary).getNetworkAddress();
         networkMask = NetworkMask.getNetworkMask().getNetworkMaskM();
         broadcast = Broadcast.getBroadcast().getBroadcastM(quadrantBinary);
-        //imprimir en consola
-        for(int i=0;i<quadrantBinary.length;i++){
-            System.out.print(quadrantBinary[i] + "/");
+        hostRange = HostRange.getHostRange().getHostRangeC(NetworkAddress.geNetworkAddress(quadrantBinary).networkAddressM(),
+                Broadcast.getBroadcast().getQuadrantBinary(quadrantBinary));
+        //impair in console
+        for (String s : quadrantBinary) {
+            System.out.print(s + "/");
         }
         System.out.println();
         System.out.println("tipo: " + networkType);
@@ -50,20 +46,17 @@ public class NetworkCalculations{
     //metodos auxiliares
         //metodo temporal para que funcione obtener el broadcast
     private void networkBinary(){
-        quadrantBinary[0] = ""+quadrant[0].getQuadrant();
-        quadrantBinary[1] = ""+quadrant[1].getQuadrant();
-        quadrantBinary[2] = ""+quadrant[2].getQuadrant();
-        quadrantBinary[3] = ""+quadrant[3].getQuadrant();
+        quadrantBinary[0] = ""+quadrant[0].quadrant();
+        quadrantBinary[1] = ""+quadrant[1].quadrant();
+        quadrantBinary[2] = ""+quadrant[2].quadrant();
+        quadrantBinary[3] = ""+quadrant[3].quadrant();
         c.convertDec_Bin(quadrantBinary);
         quadrantBinary = c.getQuadrantBinary();
         for (int i = 0; i < quadrant.length; i++){
             int sizeQuadrant = quadrantBinary[i].length();
             if(sizeQuadrant != 8){
-                String aux = "0";
-                for (int j = 0; j < 7-sizeQuadrant; j++){
-                    aux = aux + "0";
-                }
-                aux = aux + quadrantBinary[i];
+                String aux = "0" + "0".repeat(Math.max(0, 7 - sizeQuadrant)) +
+                        quadrantBinary[i];
                 quadrantBinary[i] = aux;
             }
         }
@@ -78,10 +71,6 @@ public class NetworkCalculations{
         this.quadrant = c.convertToAlphanumeric(network);
     }
 
-    public void setQuadrant(Quadrant[] quadrant){
-        this.quadrant = quadrant;
-    }
-
     public String getNetworkMask() {
         return networkMask;
     }
@@ -94,21 +83,21 @@ public class NetworkCalculations{
         return broadcast;
     }
 
-    public String getFirstIp() {
-        return firstIp;
-    }
-
-    public String getLastIp() {
-        return lastIp;
+    public String getHostRange() {
+        return hostRange;
     }
 
     public String getIpAvailable() {
+        int bitsR = ValoresIniciales.bits - ValoresIniciales.mask;
+        int r =  (int)(Math.pow(2,bitsR)) - 2;
+        ipAvailable = r + " hosts";
         return ipAvailable;
     }
 
     public String getNetworkAddress() {
         return networkAddress;
     }
+    @SuppressWarnings("StringConcatenationInLoop")
     public String getNetworkBinary(){
         int i = 0;
         for (String c1 : quadrantBinary) {
