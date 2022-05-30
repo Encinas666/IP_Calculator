@@ -152,6 +152,10 @@ public class FramePrincipal extends JFrame {
     }
 
     private void selectionBits(JComboBox<String> bits){
+        opcion(bits);
+    }
+
+    static void opcion(JComboBox<String> bits) {
         int op = bits.getSelectedIndex();
         switch (op) {
             case 0 -> ValoresIniciales.mask = 1;
@@ -184,8 +188,8 @@ public class FramePrincipal extends JFrame {
             case 27 -> ValoresIniciales.mask = 28;
             case 28 -> ValoresIniciales.mask = 29;
             case 29 -> ValoresIniciales.mask = 30;
-            case 30 -> ValoresIniciales.mask = 30;
-            case 31 -> ValoresIniciales.mask = 30;
+            case 30 -> ValoresIniciales.mask = 31;
+            case 31 -> ValoresIniciales.mask = 32;
         }
     }
 }

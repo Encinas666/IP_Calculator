@@ -12,14 +12,13 @@ public class FrameContenedor extends JFrame{
     //private Red red1;
     public FrameContenedor(String red){
         super("Calculators");
-        JPanel networkCalculators = new Panel(red);
-        JPanel subnetworkCalculation = new Panel();
-        networkCalculators.setBounds(10, 10,ValoresIniciales.MAX_WIDTH-20, ValoresIniciales.MAX_HEIGHT-200);
-        subnetworkCalculation.setBounds(10, 400,ValoresIniciales.MAX_WIDTH-20, ValoresIniciales.MAX_HEIGHT-400);
-        this.add(networkCalculators);
-        this.add(subnetworkCalculation);
+        this.add(subnetworkCalculation(2));
+        this.add(networkCalculators(red,1));
         init();
+    }
 
+    public FrameContenedor(){
+        init();
     }
     private void init(){
         this.setSize(ValoresIniciales.MAX_WIDTH, ValoresIniciales.MAX_HEIGHT);
@@ -28,5 +27,21 @@ public class FrameContenedor extends JFrame{
         this.getContentPane().setBackground(Color.black);
         this.setResizable(false);
         this.setVisible(true);
-    } 
+    }
+
+    private JPanel networkCalculators(String network, int np){
+        JPanel panel = new Panel(network, np);
+        panel.setLayout(null);
+        panel.setBackground(Color.BLACK);
+        panel.setBounds(10, 10,ValoresIniciales.MAX_WIDTH-20, ValoresIniciales.MAX_HEIGHT-200);
+        return panel;
+    }
+
+    private JPanel subnetworkCalculation(int np){
+        JPanel panel = new Panel(np);
+        panel.setLayout(null);
+        panel.setBackground(Color.BLACK);
+        panel.setBounds(10, 400, ValoresIniciales.MAX_WIDTH-20, ValoresIniciales.MAX_HEIGHT-450);
+        return panel;
+    }
 }
