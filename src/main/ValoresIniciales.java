@@ -9,4 +9,7 @@ public class ValoresIniciales {
     public static int mask = 30;
     public static final int bits = 32;
     public static int op = 0;
+
+    public static int subMask = 32;
+    public static int nR = 1;
 }
