@@ -1,0 +1,26 @@
+EXPLICACIÓN DETALLADA
+Los cálculos se realizan en binario. Por ello lo primero que haremos será convertir la dirección IP y la máscara a binario. La máscara identifica con unos los bits de la dirección IP que corresponden a la red, y con ceros los bits que corresponden al host.
+
+Para mayor claridad marcaremos en rojo los bits de red y en verde los bits de host.
+
+
+
+
+CONVERSIÓN A BINARIO
+177.222.96.70	> >	1	0	1	1	0	0	0	1	.	1	1	0	1	1	1	1	0	.	0	1	1	0	0	0	0	0	.	0	1	0	0	0	1	1	0
+255.255.0.0	> >	1	1	1	1	1	1	1	1	.	1	1	1	1	1	1	1	1	.	0	0	0	0	0	0	0	0	.	0	0	0	0	0	0	0	0
+La red se obtiene poniendo a cero todos los bits de host. En este caso la red se corresponde con:
+
+RED
+177.222.0.0/16	> >	1	0	1	1	0	0	0	1	.	1	1	0	1	1	1	1	0	.	0	0	0	0	0	0	0	0	.	0	0	0	0	0	0	0	0
+La dirección broadcast se obtiene poniendo a uno todos los bits de host. En este caso la dirección broadcast se corresponde con:
+
+BROADCAST
+177.222.255.255	> >	1	0	1	1	0	0	0	1	.	1	1	0	1	1	1	1	0	.	1	1	1	1	1	1	1	1	.	1	1	1	1	1	1	1	1
+El rango de hosts son todos los valores que existen entre la red y la dirección broadcast.
+
+RANGO HOSTS
+177.222.0.1	> >	1	0	1	1	0	0	0	1	.	1	1	0	1	1	1	1	0	.	0	0	0	0	0	0	0	0	.	0	0	0	0	0	0	0	1
+177.222.255.254	> >	1	0	1	1	0	0	0	1	.	1	1	0	1	1	1	1	0	.	1	1	1	1	1	1	1	1	.	1	1	1	1	1	1	1	0
+
+

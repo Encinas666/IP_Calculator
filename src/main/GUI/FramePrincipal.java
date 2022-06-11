@@ -80,7 +80,7 @@ public class FramePrincipal extends JFrame {
 
         JButton calcular = new JButton("<html><span style='font-size:10px'>"+"Calcular"+"</span></html>");
         calcular.setForeground(Color.WHITE);
-        calcular.setBounds(300, 200, 100, 40);
+        calcular.setBounds(300, 180, 100, 40);
         calcular.setBorder(null);
         calcular.setFocusable(false);
         calcular.setBackground(Color.BLUE);
@@ -95,6 +95,19 @@ public class FramePrincipal extends JFrame {
                 mensajeError();
             }
         });
+
+        try{
+            JButton help = new JButton(new ImageIcon(new ImageIcon("src/resource/helpBtn.png").getImage().getScaledInstance(48, 48, Image.SCALE_DEFAULT)));
+            help.setBounds(444, 220, 48, 48);
+            help.setBackground(Color.BLACK);
+            help.setBorder(null);
+            panel.add(help);
+            help.addActionListener(e -> {
+                new FrameContenedor(4);
+            });
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
 
         return panel;
     }

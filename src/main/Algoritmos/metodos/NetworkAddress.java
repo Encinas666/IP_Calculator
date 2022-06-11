@@ -38,7 +38,6 @@ public class NetworkAddress {
                 }
                 y++;
             }
-            System.out.println(networkAddress);
             binaryNA[i] = networkAddress.toString();
             i++;
         }

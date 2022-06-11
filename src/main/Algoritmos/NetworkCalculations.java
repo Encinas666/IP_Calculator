@@ -28,19 +28,10 @@ public class NetworkCalculations{
     public void networkCalculations(){
         networkType = NetworkName.geNetworkName(getQuadrants()).networkClass();
         networkAddress = NetworkAddress.geNetworkAddress(quadrantBinary).getNetworkAddress();
-        networkMask = NetworkMask.getNetworkMask().getNetworkMaskM();
+        networkMask = NetworkMask.getNetworkMask().getNetworkMaskM(1);
         broadcast = Broadcast.getBroadcast().getBroadcastM(quadrantBinary);
         hostRange = HostRange.getHostRange().getHostRangeC(NetworkAddress.geNetworkAddress(quadrantBinary).networkAddressM(),
                 Broadcast.getBroadcast().getQuadrantBinary(quadrantBinary));
-        //impair in console
-        for (String s : quadrantBinary) {
-            System.out.print(s + "/");
-        }
-        System.out.println();
-        System.out.println("tipo: " + networkType);
-        System.out.println("Mask: " + networkMask);
-        System.out.println("Dir RED: " + networkAddress);
-        System.out.println("broadcast: " + broadcast);
     }
 
     //metodos auxiliares
@@ -55,8 +46,7 @@ public class NetworkCalculations{
         for (int i = 0; i < quadrant.length; i++){
             int sizeQuadrant = quadrantBinary[i].length();
             if(sizeQuadrant != 8){
-                String aux = "0" + "0".repeat(Math.max(0, 7 - sizeQuadrant)) +
-                        quadrantBinary[i];
+                String aux = "0" + "0".repeat(Math.max(0, 7 - sizeQuadrant)) + quadrantBinary[i];
                 quadrantBinary[i] = aux;
             }
         }

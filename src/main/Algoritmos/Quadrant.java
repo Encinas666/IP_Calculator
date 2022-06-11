@@ -28,8 +28,7 @@ public final class Quadrant {
 
     @Override
     public String toString() {
-        return "Quadrant[" +
-                "quadrant=" + quadrant + ']';
+        return "" + quadrant;
     }
 
 }

@@ -20,9 +20,14 @@ public class NetworkMask{
         return mr;
     }
 
-    public String getNetworkMaskM(){
+    public String getNetworkMaskM(int op1){
         Convert c = new Convert();
-        networkMaskBinary();
+        if(op1!=0){
+            networkMaskBinary();
+        }else{
+            subnetworkMaskBinary();
+        }
+
         c.convertBin_Dec(obtainQuadrants());
         q = c.getC();
         return c.getToString(q);
@@ -33,8 +38,19 @@ public class NetworkMask{
         ValoresIniciales.op = 1;
         aux = "";
         for(int i = 0; i < 32; i++){
-
             if(i < ValoresIniciales.mask){
+                aux = aux + 1;
+            }else{
+                aux = aux + 0;
+            }
+        }
+    }
+
+    private void subnetworkMaskBinary(){
+        ValoresIniciales.op = 1;
+        aux = "";
+        for(int i = 0; i < 32; i++){
+            if(i < ValoresIniciales.subM){
                 aux = aux + 1;
             }else{
                 aux = aux + 0;
@@ -50,6 +66,4 @@ public class NetworkMask{
         oct[3] = aux.substring(24,32);
         return oct;
     }
-
-
 }

@@ -18,7 +18,13 @@ public class FrameContenedor extends JFrame{
     }
 
     public FrameContenedor(){
-        init();
+        this.add(listSubnetworks(3));
+        init2();
+    }
+
+    public FrameContenedor(int np){
+        this.add(help(np));
+        init2();
     }
     private void init(){
         this.setSize(ValoresIniciales.MAX_WIDTH, ValoresIniciales.MAX_HEIGHT);
@@ -28,9 +34,18 @@ public class FrameContenedor extends JFrame{
         this.setResizable(false);
         this.setVisible(true);
     }
+    private void init2(){
+        this.setSize(ValoresIniciales.MAX_WIDTH+400, ValoresIniciales.MAX_HEIGHT);
+        this.setLocationRelativeTo(null);
+        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        this.getContentPane().setBackground(Color.black);
+        this.setResizable(false);
+        this.setVisible(true);
+    }
 
     private JPanel networkCalculators(String network, int np){
-        JPanel panel = new Panel(network, np);
+        JPanel panel;
+        panel = new Panel(network, np);
         panel.setLayout(null);
         panel.setBackground(Color.BLACK);
         panel.setBounds(10, 10,ValoresIniciales.MAX_WIDTH-20, ValoresIniciales.MAX_HEIGHT-200);
@@ -42,6 +57,21 @@ public class FrameContenedor extends JFrame{
         panel.setLayout(null);
         panel.setBackground(Color.BLACK);
         panel.setBounds(10, 400, ValoresIniciales.MAX_WIDTH-20, ValoresIniciales.MAX_HEIGHT-450);
+        return panel;
+    }
+
+    private JPanel listSubnetworks(int np){
+        JPanel panel = new Panel(np);
+        panel.setLayout(null);
+        panel.setBackground(Color.BLACK);
+        panel.setBounds(10, 400, ValoresIniciales.MAX_WIDTH+400, ValoresIniciales.MAX_HEIGHT);
+        return panel;
+    }
+    private JPanel help(int np){
+        JPanel panel = new Panel(np);
+        panel.setLayout(null);
+        panel.setBackground(Color.BLACK);
+        panel.setBounds(10, 400, ValoresIniciales.MAX_WIDTH+400, ValoresIniciales.MAX_HEIGHT);
         return panel;
     }
 }

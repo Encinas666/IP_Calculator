@@ -39,7 +39,7 @@ public class HostRange {
         aux[3] = String.valueOf(lastQuadrant);
         c.convertBin_Dec(aux);
         qh1 = c.getC();
-        hostRange = hostRange + "/" + c.getToString(qh1);
+        hostRange = hostRange + "//" + c.getToString(qh1);
     }
     public String getHostRangeC(String[] network, String[] broadcast){
         firstHost(network);

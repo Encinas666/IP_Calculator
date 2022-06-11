@@ -1,17 +1,25 @@
 package main.GUI;
 
 import main.Algoritmos.NetworkCalculations;
+import main.Algoritmos.metodos.NetworkMask;
+import main.Algoritmos.metodos.SubNetworks;
 import main.ValoresIniciales;
 
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
+import java.io.*;
+
 public class Panel extends JPanel {
     //private Red red1;
     private NetworkCalculations cr;
-    private int np;
-    private JComboBox<String> bitsR, requieredIP, subNetworks;
+    private final int np;
+
+    private String[] itemSN, itemBR, item3;
+    private JComboBox<String> bitsR;
+    private JLabel hostXsubnet, subNetworks, subMask;
     private JButton list;
+    private JList<String> listSN;
 
      private JLabel broadcast, networkAddress, networkMask,binary, network, hostRange;
     public Panel(int np) {
@@ -29,10 +37,13 @@ public class Panel extends JPanel {
     private void init() {
         if(np == 1){
             panel1();
-        }else{
+        }else if(np == 2){
             panel2();
+        }else if(np == 3){
+            panelList();
+        }else{
+            panelHelp();
         }
-
     }
 
     public void panel1(){
@@ -83,37 +94,45 @@ public class Panel extends JPanel {
         this.add(binary);
     }
     public void panel2(){
+        ValoresIniciales.remainingBits = ValoresIniciales.bits-ValoresIniciales.mask;
+        setItemBR();
+
         this.setBorder(borderTitle("Sub-network"));
         Font font = new Font("Arial", Font.PLAIN, 15);
 
-        networkMask = new JLabel();
-        networkMask.setBounds(120,20 , 150, 50);
-        networkMask.setFont(font);
-        networkMask.setForeground(Color.WHITE);
-        networkMask.setBorder(BorderFactory.createTitledBorder(null, "Sub-Mask",2,0, null, Color.white));
+        subMask = new JLabel();
+        subMask.setBounds(120,20 , 150, 50);
+        subMask.setFont(font);
+        subMask.setForeground(Color.WHITE);
+        subMask.setBorder(BorderFactory.createTitledBorder(null, "Sub-Mask",2,0, null, Color.white));
+
+        hostXsubnet = new JLabel();
+        hostXsubnet.setBounds(20, 70, 80, 50);
+        hostXsubnet.setFont(font);
+        hostXsubnet.setForeground(Color.WHITE);
+        hostXsubnet.setBorder(BorderFactory.createTitledBorder(null, "Host",2,0, null, Color.white));
+
+        subNetworks = new JLabel();
+        subNetworks.setBounds(280, 70, 80, 50);
+        subNetworks.setFont(font);
+        subNetworks.setForeground(Color.WHITE);
+        subNetworks.setBorder(BorderFactory.createTitledBorder(null, "Sub-Network",2,0, null, Color.white));
+
 
         bitsR = new JComboBox<>();
-        bitsR.setBounds(180, 70, 40, 25);
-        for(int i = ValoresIniciales.mask; i<=32;i++){
-            bitsR.addItem(""+i);
-        }
+        bitsR.setBounds(180, 70, 60, 25);
+        bitsR.setModel(new DefaultComboBoxModel<>(itemBR));
+        bitsR.addActionListener(e -> {
+            ValoresIniciales.subM =Integer.parseInt(bitsR.getItemAt(bitsR.getSelectedIndex()));
+            ValoresIniciales.m = ValoresIniciales.bits-ValoresIniciales.subM;
+            int y = (int)Math.pow(2,bitsR.getSelectedIndex());
+            int z = (int)Math.pow(2,ValoresIniciales.m)-2;
+            ValoresIniciales.subMask = NetworkMask.getNetworkMask().getNetworkMaskM(0);
+            subMask.setText(ValoresIniciales.subMask);
+            hostXsubnet.setText(""+z);
+            subNetworks.setText(""+y);
+        });
 
-        requieredIP = new JComboBox<>();
-        requieredIP.setBounds(20, 70, 80, 25);
-        int r1 = ValoresIniciales.bits-ValoresIniciales.mask;
-        int j = r1;
-        while(j>=0){
-            int z = (int)Math.pow(2,j);
-            requieredIP.addItem(""+ z);
-            j--;
-        }
-
-        subNetworks = new JComboBox<>();
-        subNetworks.setBounds(280, 70, 80, 25);
-        for(int i = 0; i<=r1;i++){
-            int y = (int)Math.pow(2,i);
-            subNetworks.addItem(""+ y);
-        }
 
         list = new JButton("List");
         list.setForeground(Color.WHITE);
@@ -122,15 +141,77 @@ public class Panel extends JPanel {
         list.setFocusable(false);
         list.setBackground(Color.BLUE);
 
-        this.add(networkMask);
+        this.add(subMask);
         this.add(bitsR);
-        this.add(requieredIP);
+        this.add(hostXsubnet);
         this.add(subNetworks);
         this.add(list);
 
         list.addActionListener(e -> {
+            ValoresIniciales.numberSubnets = Integer.parseInt(subNetworks.getText());
             new FrameContenedor();
         });
+    }
+
+    public void panelList(){
+        this.setBorder(borderTitle("List Sub-Network"));
+
+        Font font = new Font("Arial", Font.PLAIN, 15);
+
+        network= new JLabel();
+        network.setBounds(10,  20, 300, 50);
+        network.setFont(font);
+        network.setForeground(Color.WHITE);
+        network.setBorder(border("Network"));
+        network.setText(ValoresIniciales.network);
+
+        subMask = new JLabel();
+        subMask.setBounds(10,70 , 300, 50);
+        subMask.setFont(font);
+        subMask.setForeground(Color.WHITE);
+        subMask.setBorder(border("Sub Mask"));
+        subMask.setText(ValoresIniciales.subMask);
+
+        listSN = new JList<>();
+        listSN.setBorder(borderTitle("Sub-Network List"));
+        listSN.setBounds(10,  130, 780, 400);
+        listSN.setFont(font);
+        listSN.setForeground(Color.WHITE);
+        listSN.setBackground(Color.BLACK);
+        DefaultListModel listModel = new DefaultListModel<>();
+        String[] lista = SubNetworks.getSubNetwork().subnets();
+
+        for (int j = 0; j < ValoresIniciales.numberSubnets;j++){
+            //System.out.println(lista[j]);
+            listModel.add(j,lista[j]);
+        }
+        listModel.add(0,"Network ------------- Range host ------------ Broadcast");
+        listSN.setModel(listModel);
+
+
+        this.add(network);
+        this.add(subMask);
+        this.add(listSN);
+    }
+
+    public void panelHelp(){
+        String text = getFile("src/help/HELP.txt");
+        this.setBorder(borderTitle("HELP"));
+        Font font = new Font("Arial", Font.PLAIN, 15);
+
+        JTextArea txA = new JTextArea();
+        txA.setFont(font);
+        txA.setBackground(Color.BLACK);
+        txA.setForeground(Color.WHITE);
+        txA.setBounds(10,15,780,540);
+        txA.setBorder(borderTitle("_____"));
+        JScrollBar bar = new JScrollBar();
+        bar.add(txA);
+        bar.setBackground(Color.WHITE);
+        txA.setText(text);
+
+        this.add(txA);
+        this.add(bar);
     }
 
     public Border border(String title){
@@ -144,55 +225,51 @@ public class Panel extends JPanel {
     public void setLblText(){
         cr.run();
         this.setBorder(borderTitle(cr.getTypeNetwork()));
-        hostRange.setBorder(border("Host Range("+cr.getIpAvailable()+"):"));
-        network.setText(cr.getNetwork());
-        networkAddress.setText(cr.getNetworkAddress());
-        networkMask.setText(cr.getNetworkMask());
-        binary.setText(cr.getNetworkBinary());
-        broadcast.setText(cr.getBroadcast());
-        hostRange.setText(cr.getHostRange());
+        ValoresIniciales.hostRangeBorder= "Host Range("+cr.getIpAvailable()+"):";
+        ValoresIniciales.network = cr.getNetwork();
+        ValoresIniciales.networkAddress = cr.getNetworkAddress();
+        ValoresIniciales.networkMask = cr.getNetworkMask();
+        ValoresIniciales.binary = cr.getNetworkBinary();
+        ValoresIniciales.broadcast = cr.getBroadcast();
+        ValoresIniciales.hostRange = cr.getHostRange();
+
+        hostRange.setBorder(border(ValoresIniciales.hostRangeBorder));
+        network.setText(ValoresIniciales.network);
+        networkAddress.setText(ValoresIniciales.networkAddress);
+        networkMask.setText(ValoresIniciales.networkMask);
+        binary.setText(ValoresIniciales.binary);
+        broadcast.setText(ValoresIniciales.broadcast);
+        hostRange.setText(ValoresIniciales.hostRange);
     }
 
     //aux
-    private void selectionBits(JComboBox<String> bitsR) {
-        int op = bitsR.getSelectedIndex();
-        switch (op) {
-            case 0->item(0, 1);
-            case 1->item(1, 2);
-            case 2->item(2, 3);
-            case 3->item(3, 4);
-            case 4->item(4, 5);
-            case 5->item(5, 6);
-            case 6->item(6, 7);
-            case 7->item(7, 8);
-            case 8->item(8, 9);
-            case 9->item(9, 10);
-            case 10->item(10, 11);
-            case 11->item(11, 12);
-            case 12->item(12, 13);
-            case 13->item(13, 14);
-            case 14->item(14, 15);
-            case 15->item(15, 16);
-            case 16->item(16, 17);
-            case 17->item(17, 18);
-            case 18->item(18, 19);
-            case 19->item(19, 20);
-            case 20->item(20, 21);
-            case 21->item(21, 22);
-            case 22->item(22, 23);
-            case 23->item(23, 24);
-            case 24->item(24, 25);
-            case 25->item(25, 26);
-            case 26->item(26, 27);
-            case 27->item(27, 28);
-            case 28->item(28, 29);
-            case 29->item(29, 30);
-            case 30->item(30, 32);
-            case 31->item(31, 32);
+    private void setItemBR() {
+        itemBR = new String[ValoresIniciales.remainingBits +1];
+        for(int i = ValoresIniciales.mask, j=0; i<=32;i++,j++){
+            itemBR[j]= (""+i);
         }
     }
-    private void item(int op, int mask ){
-        ValoresIniciales.mask = mask;
-        requieredIP.setSelectedIndex(op);
+
+    private String getFile(String ruta){
+        File file;
+        FileReader fr;
+        BufferedReader  br ;
+        StringBuilder content = null;
+        String text = "";
+        try {
+            file = new File(ruta);
+            fr = new FileReader(file);
+            br = new BufferedReader(fr);
+            content = new StringBuilder();
+            String linea;
+            while ((linea = br.readLine()) != null){
+                content.append(linea).append("\n");
+            }
+            br.close();
+            fr.close();
+            text = content.toString();
+        } catch (Exception ignored) {
+        }
+        return text;
     }
 }
