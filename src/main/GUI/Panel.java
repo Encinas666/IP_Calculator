@@ -7,6 +7,7 @@ import main.ValoresIniciales;
 
 import javax.swing.*;
 import javax.swing.border.Border;
+import javax.swing.plaf.UIResource;
 import java.awt.*;
 import java.io.*;
 
@@ -19,7 +20,7 @@ public class Panel extends JPanel {
     private JComboBox<String> bitsR;
     private JLabel hostXsubnet, subNetworks, subMask;
     private JButton list;
-    private JList<String> listSN;
+    private JList<String> listSN, listHR, listB;
 
      private JLabel broadcast, networkAddress, networkMask,binary, network, hostRange;
     public Panel(int np) {
@@ -148,8 +149,14 @@ public class Panel extends JPanel {
         this.add(list);
 
         list.addActionListener(e -> {
-            ValoresIniciales.numberSubnets = Integer.parseInt(subNetworks.getText());
-            new FrameContenedor();
+            try {
+                ValoresIniciales.numberSubnets = Integer.parseInt(subNetworks.getText());
+                new FrameContenedor();
+            }catch (NumberFormatException ex){
+                ex.getStackTrace();
+                JOptionPane.showMessageDialog(null, "Modifique los valores");
+            }
+
         });
     }
 
@@ -157,6 +164,9 @@ public class Panel extends JPanel {
         this.setBorder(borderTitle("List Sub-Network"));
 
         Font font = new Font("Arial", Font.PLAIN, 15);
+        DefaultListModel listModelSN = new DefaultListModel<>();
+        DefaultListModel listModelHR = new DefaultListModel<>();
+        DefaultListModel listModelB = new DefaultListModel<>();
 
         network= new JLabel();
         network.setBounds(10,  20, 300, 50);
@@ -172,34 +182,74 @@ public class Panel extends JPanel {
         subMask.setBorder(border("Sub Mask"));
         subMask.setText(ValoresIniciales.subMask);
 
+
+
         listSN = new JList<>();
         listSN.setBorder(borderTitle("Sub-Network List"));
-        listSN.setBounds(10,  130, 780, 400);
+        listSN.setBounds(10,  130, 230, 400);
         listSN.setFont(font);
         listSN.setForeground(Color.WHITE);
         listSN.setBackground(Color.BLACK);
-        DefaultListModel listModel = new DefaultListModel<>();
-        String[] lista = SubNetworks.getSubNetwork().subnets();
+
+        listHR = new JList<>();
+        listHR.setBorder(borderTitle("Host Range"));
+        listHR.setBounds(245,  130, 300, 400);
+        listHR.setFont(font);
+        listHR.setForeground(Color.WHITE);
+        listHR.setBackground(Color.BLACK);
+
+        listB = new JList<>();
+        listB.setBorder(borderTitle("Broadcast"));
+        listB.setBounds(555,  130, 230, 400);
+        listB.setFont(font);
+        listB.setForeground(Color.WHITE);
+        listB.setBackground(Color.BLACK);
+
+
+
+
+        String[] listSubnet = SubNetworks.getSubNetwork().subnets();
+
+        String[] lsn, lhr,lb;
+
+        lsn = new String[ValoresIniciales.numberSubnets];
+        lhr = new String[ValoresIniciales.numberSubnets];
+        lb = new String[ValoresIniciales.numberSubnets];
 
         for (int j = 0; j < ValoresIniciales.numberSubnets;j++){
-            //System.out.println(lista[j]);
-            listModel.add(j,lista[j]);
-        }
-        listModel.add(0,"Network ------------- Range host ------------ Broadcast");
-        listSN.setModel(listModel);
+            String [] aux = listSubnet[j].split("#");
 
+            lsn[j] = aux [0];
+            lhr[j] = aux [1];
+            lb[j] = aux [2];
+        }
+
+        for (int j = 0; j < ValoresIniciales.numberSubnets;j++){
+            listModelSN.add(j,lsn[j]);
+            listModelHR.add(j,lhr[j]);
+            listModelB.add(j,lb[j]);
+
+        }
+
+
+        listSN.setModel(listModelSN);
+        listHR.setModel(listModelHR);
+        listB.setModel(listModelB);
 
         this.add(network);
         this.add(subMask);
         this.add(listSN);
+        this.add(listHR);
+        this.add(listB);
+
     }
 
     public void panelHelp(){
-        String text = getFile("src/help/HELP.txt");
+        String text = getFile("/home/jhonatan/Escritorio/gitHub/folder2/IP_Calculator/src/help/HELP.txt");
         this.setBorder(borderTitle("HELP"));
         Font font = new Font("Arial", Font.PLAIN, 15);
 
-        JTextArea txA = new JTextArea();
+        JTextPane txA = new JTextPane();
         txA.setFont(font);
         txA.setBackground(Color.BLACK);
         txA.setForeground(Color.WHITE);

@@ -50,8 +50,8 @@ public class FramePrincipal extends JFrame {
     
         //Image
         try{
-           JLabel imagenContenedor = new JLabel(new ImageIcon(new ImageIcon("src/resource/calc_ip.png").getImage().getScaledInstance(180, 180, Image.SCALE_DEFAULT)));
-           imagenContenedor.setBounds(20, 25, 180, 180);
+           JLabel imagenContenedor = new JLabel(new ImageIcon(new ImageIcon("/home/jhonatan/Escritorio/gitHub/folder2/IP_Calculator/src/resource/calc_ip.png").getImage().getScaledInstance(210, 230, Image.SCALE_DEFAULT)));
+           imagenContenedor.setBounds(15, 25, 210, 230);
            panel.add(imagenContenedor);
         }catch (Exception e) {
             e.printStackTrace();
@@ -97,7 +97,7 @@ public class FramePrincipal extends JFrame {
         });
 
         try{
-            JButton help = new JButton(new ImageIcon(new ImageIcon("src/resource/helpBtn.png").getImage().getScaledInstance(48, 48, Image.SCALE_DEFAULT)));
+            JButton help = new JButton(new ImageIcon(new ImageIcon("/home/jhonatan/Escritorio/gitHub/folder2/IP_Calculator/src/resource/helpBtn.png").getImage().getScaledInstance(48, 48, Image.SCALE_DEFAULT)));
             help.setBounds(444, 220, 48, 48);
             help.setBackground(Color.BLACK);
             help.setBorder(null);

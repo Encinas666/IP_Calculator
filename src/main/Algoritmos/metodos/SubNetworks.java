@@ -47,8 +47,7 @@ public class SubNetworks {
         broadcast(salto);
         hostRange(salto);
         for (int x = 0; x < ValoresIniciales.numberSubnets; x++){
-          res1[x] = SNets[x]+ "-----------"+ RH[x] + "--------------" +B[x];
-            //System.out.println(res1[x]);
+          res1[x] = SNets[x]+ "#"+ RH[x] + "#" +B[x];
         }
 
         return res1;
